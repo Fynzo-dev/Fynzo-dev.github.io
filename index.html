@@ -2,10 +2,165 @@
 <html dir="rtl" lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>האתר שלי בגיטהאב</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fynzo's Portfolio</title>
+    <style>
+        body {
+            background-color: #d4f1f9; /* רקע תכלת נעים */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1a252f;
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        h2 {
+            color: #2980b9;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .skills-container {
+            margin: 25px 0;
+        }
+        .skills {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        /* עיצוב מגניב לשפות התכנות */
+        .skill-badge {
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: default;
+        }
+        .skill-badge:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        .experience {
+            font-size: 1.25em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-right: 5px solid #3498db;
+            border-radius: 5px;
+        }
+        /* הגריד של הסרטונים */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        .video-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .video-card p {
+            margin: 10px 0 0 0;
+            font-weight: bold;
+            color: #555;
+        }
+        video {
+            width: 100%;
+            border-radius: 8px;
+            background-color: #000;
+        }
+    </style>
 </head>
 <body>
-    <h1>ברוכים הבאים לאתר שלי!</h1>
-    <p>זה האתר הראשון שלי שיושב על GitHub Pages. איזה מגניב!</p>
+
+    <header>
+        <h1 dir="ltr">Fynzo's Portfolio</h1>
+    </header>
+
+    <div class="container">
+        <h2>קצת עליי</h2>
+        
+        <div class="experience">
+            <strong>מעל 3 שנים ניסיון בפיתוח משחקים ברובלוקס (Scripting).</strong><br>
+            אני מתמחה ביצירת מערכות, כתיבת קוד נקי והפיכת רעיונות למשחקים שעובדים בצורה חלקה.
+        </div>
+
+        <div class="skills-container">
+            <h3>השפות שאני שולט בהן:</h3>
+            <div class="skills" dir="ltr">
+                <div class="skill-badge">Python</div>
+                <div class="skill-badge">C#</div>
+                <div class="skill-badge">Lua</div>
+                <div class="skill-badge">HTML</div>
+            </div>
+        </div>
+
+        <h2>העבודות שלי</h2>
+        <div class="videos-grid">
+            
+            <div class="video-card">
+                <video controls>
+                    <source src="video1.mp4" type="video/mp4">
+                    הדפדפן שלך לא תומך בהצגת וידאו.
+                </video>
+                <p>עבודה 1 - מערכת קרב ברובלוקס</p>
+            </div>
+            
+            <div class="video-card">
+                <video controls>
+                    <source src="video2.mp4" type="video/mp4">
+                    הדפדפן שלך לא תומך בהצגת וידאו.
+                </video>
+                <p>עבודה 2 - ממשק משתמש (UI)</p>
+            </div>
+            
+            <div class="video-card">
+                <video controls>
+                    <source src="video3.mp4" type="video/mp4">
+                    הדפדפן שלך לא תומך בהצגת וידאו.
+                </video>
+                <p>עבודה 3 - מיני-גיים מותאם אישית</p>
+            </div>
+            
+            <div class="video-card">
+                <video controls>
+                    <source src="video4.mp4" type="video/mp4">
+                    הדפדפן שלך לא תומך בהצגת וידאו.
+                </video>
+                <p>עבודה 4 - תכנות מתקדם ב-Lua</p>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 </html>
