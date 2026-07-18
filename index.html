@@ -6,21 +6,19 @@
     <title>Fynzo | Advanced Roblox Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* פלטת לילך וכסף בהירה, נקייה ומודרנית בהשראת האוואטר שלך */
-            --bg-main: #f8fafc;
-            --bg-gradient: linear-gradient(135deg, #f5f3ff 0%, #f1f5f9 100%);
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             --card-bg: #ffffff;
-            --text-dark: #1e1b4b; /* סגול כהה עמוק במקום שחור משעמם */
+            --text-dark: #1e1b4b; 
             --text-muted: #64748b;
-            --purple-accent: #8b5cf6; /* סגול לילך חי שתואם לקרניים ולחליפה */
+            --purple-accent: #8b5cf6; 
             --purple-light: #ede9fe;
             --silver-border: #e2e8f0;
             --shadow-sm: 0 2px 8px rgba(139, 92, 246, 0.04);
-            --shadow-md: 0 12px 34px rgba(139, 92, 246, 0.08);
+            --shadow-md: 0 16px 40px rgba(139, 92, 246, 0.08);
         }
 
         body {
@@ -33,12 +31,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* ניווט עליון מינימליסטי */
+        /* אלמנטים עיצוביים זזים ברקע (בלתי אפשרי לפספס, אבל נקי מאוד) */
+        .bg-blur-orb {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(167, 139, 250, 0.15);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+            top: 10%;
+            right: -10%;
+            animation: floatOrb 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.1); }
+        }
+
+        /* ניווט */
         header {
             width: 100%;
-            max-width: 1300px;
+            max-width: 1200px;
             padding: 30px 20px;
             display: flex;
             justify-content: space-between;
@@ -49,19 +68,13 @@
         .logo {
             font-size: 1.4rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
             color: var(--text-dark);
+            text-decoration: none;
         }
 
-        .logo span {
-            color: var(--purple-accent);
-        }
+        .logo span { color: var(--purple-accent); }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
+        .nav-links { display: flex; gap: 30px; }
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
@@ -69,99 +82,119 @@
             font-size: 0.95rem;
             transition: color 0.2s ease;
         }
+        .nav-links a:hover { color: var(--purple-accent); }
 
-        .nav-links a:hover {
-            color: var(--purple-accent);
-        }
-
-        /* סקשן פתיחה (Hero) - עיצוב בהיר ומרווח */
-        .hero-container {
-            text-align: center;
-            max-width: 850px;
-            margin-top: 80px;
-            margin-bottom: 70px;
+        /* Hero Section משולב עם קופסת הקוד */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin-top: 60px;
+            margin-bottom: 80px;
             padding: 0 20px;
+            align-items: center;
+            box-sizing: border-box;
         }
 
-        .badge {
-            background: var(--purple-light);
-            color: var(--purple-accent);
-            padding: 8px 18px;
-            border-radius: 99px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 25px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
+        @media (max-width: 960px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                margin-top: 30px;
+            }
+            .btn-group { justify-content: center; }
+            .terminal-window { margin: 0 auto; }
         }
 
-        .hero-container h1 {
-            font-size: 3.8rem;
+        .hero-text h1 {
+            font-size: 3.6rem;
             font-weight: 800;
             line-height: 1.15;
             margin: 0 0 20px 0;
             letter-spacing: -1.5px;
         }
 
-        .hero-container h1 span {
+        .hero-text h1 span {
             background: linear-gradient(to right, var(--purple-accent), #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-container p {
-            font-size: 1.25rem;
+        .hero-text p {
+            font-size: 1.2rem;
             color: var(--text-muted);
             line-height: 1.6;
             margin: 0 0 35px 0;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        /* כפתורים מעוגלים ורכים */
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
+        .btn-group { display: flex; gap: 15px; }
         .btn {
             padding: 14px 32px;
             border-radius: 16px;
             font-size: 0.95rem;
             font-weight: 700;
             text-decoration: none;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.25s ease;
             cursor: pointer;
         }
-
         .btn-filled {
             background: var(--text-dark);
             color: #ffffff;
             box-shadow: 0 4px 12px rgba(30, 27, 75, 0.15);
         }
-
         .btn-filled:hover {
-            transform: translateY(-2px);
             background: var(--purple-accent);
-            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
         }
-
         .btn-outline {
             background: var(--card-bg);
             color: var(--text-dark);
             border: 1px solid var(--silver-border);
-            box-shadow: var(--shadow-sm);
         }
-
         .btn-outline:hover {
             border-color: var(--purple-accent);
             color: var(--purple-accent);
             transform: translateY(-2px);
         }
 
-        /* גריד מה אני מציע (Expertise) */
+        /* אלמנט ה"וואו" - קופסת הקוד המקצועית */
+        .terminal-window {
+            background: #0f172a;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            max-width: 500px;
+            width: 100%;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        .terminal-header {
+            background: #1e293b;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-r { background: #ef4444; }
+        .dot-y { background: #eab308; }
+        .dot-g { background: #22c55e; }
+        .terminal-title { color: #94a3b8; margin-left: 10px; font-size: 0.8rem; }
+
+        .terminal-body { padding: 20px; color: #f8fafc; line-height: 1.6; }
+        .c-keyword { color: #f472b6; }
+        .c-string { color: #34d399; }
+        .c-name { color: #60a5fa; }
+        .c-comment { color: #64748b; font-style: italic; }
+
+        /* סקשן אודות (About Me) המשודרג */
         .main-content {
             width: 100%;
             max-width: 1200px;
@@ -169,96 +202,87 @@
             box-sizing: border-box;
         }
 
-        .section-header {
-            margin-bottom: 45px;
-        }
-
-        .section-header h2 {
+        .section-title {
             font-size: 2.2rem;
             font-weight: 800;
-            margin: 0 0 10px 0;
+            margin-bottom: 35px;
             letter-spacing: -0.5px;
         }
 
-        .grid-3-col {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 90px;
-        }
-
-        .card {
+        .about-box {
             background: var(--card-bg);
             border: 1px solid var(--silver-border);
-            border-radius: 24px;
-            padding: 35px;
+            border-radius: 28px;
+            padding: 45px;
             box-shadow: var(--shadow-sm);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 80px;
         }
 
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
-            border-color: rgba(139, 92, 246, 0.3);
+        .about-box h3 { margin-top: 0; font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+        .about-box p { color: var(--text-muted); font-size: 1.15rem; line-height: 1.6; margin: 0 0 35px 0; }
+
+        /* עיצוב רשימת היתרונות שלך (Clean & Sharp) */
+        .highlights-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
         }
 
-        .card-icon {
-            width: 48px;
-            height: 48px;
+        @media (max-width: 650px) { .highlights-list { grid-template-columns: 1fr; } }
+
+        .highlight-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .icon-box {
             background: var(--purple-light);
-            border-radius: 14px;
+            color: var(--purple-accent);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--purple-accent);
+            font-size: 1.1rem;
+            flex-shrink: 0;
         }
 
-        .card h3 {
-            margin: 0 0 12px 0;
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
+        .highlight-text h4 { margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700; }
+        .highlight-text p { margin: 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.4; }
 
-        .card p {
-            margin: 0 0 20px 0;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* תגיות טכנולוגיה קטנות בתוך הכרטיסיות */
-        .tags-list {
+        .tech-row {
             display: flex;
-            gap: 8px;
+            align-items: center;
+            gap: 12px;
             flex-wrap: wrap;
+            border-top: 1px solid var(--silver-border);
+            padding-top: 30px;
         }
-
+        .tech-row span { font-weight: 700; font-size: 0.95rem; color: var(--text-muted); margin-right: 10px; }
         .tag {
             background: #f1f5f9;
             color: var(--text-dark);
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 8px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
+            border: 1px solid #e2e8f0;
         }
 
         /* גריד סרטונים (Showcase) */
-        .grid-2-col {
+        .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
-            margin-bottom: 90px;
+            margin-bottom: 80px;
         }
 
-        @media (max-width: 550px) {
-            .grid-2-col {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 650px) { .video-grid { grid-template-columns: 1fr; } }
 
-        .video-wrapper {
+        .video-card {
             background: var(--card-bg);
             border: 1px solid var(--silver-border);
             border-radius: 24px;
@@ -267,9 +291,10 @@
             transition: all 0.3s ease;
         }
 
-        .video-wrapper:hover {
+        .video-card:hover {
             box-shadow: var(--shadow-md);
             border-color: rgba(139, 92, 246, 0.2);
+            transform: translateY(-4px);
         }
 
         video {
@@ -281,58 +306,23 @@
             display: block;
         }
 
-        .video-wrapper h4 {
-            margin: 15px 0 0 5px;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
+        .video-card h4 { margin: 15px 0 0 5px; font-size: 1.1rem; font-weight: 700; }
 
-        /* בלוק יצירת קשר (Get in Touch) */
-        .footer-cta {
+        /* יצירת קשר (Get in Touch) */
+        .contact-card {
             background: var(--card-bg);
             border: 1px solid var(--silver-border);
             border-radius: 32px;
-            padding: 60px 40px;
+            padding: 50px 40px;
             text-align: center;
             box-shadow: var(--shadow-md);
-            position: relative;
-            overflow: hidden;
         }
 
-        /* אפקט עיצובי ברקע הכרטיסייה */
-        .footer-cta::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -20%;
-            width: 300px;
-            height: 300px;
-            background: rgba(167, 139, 250, 0.1);
-            filter: blur(80px);
-            border-radius: 50%;
-        }
+        .contact-card h3 { font-size: 2.2rem; font-weight: 800; margin: 0 0 10px 0; }
+        .contact-card p { color: var(--text-muted); margin: 0 0 35px 0; font-size: 1.05rem; }
 
-        .footer-cta h3 {
-            font-size: 2.3rem;
-            font-weight: 800;
-            margin: 0 0 12px 0;
-            letter-spacing: -0.5px;
-        }
-
-        .footer-cta p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin: 0 0 35px 0;
-        }
-
-        .social-row {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
+        .social-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .social-btn {
             background: #f1f5f9;
             border: 1px solid var(--silver-border);
             padding: 16px 28px;
@@ -346,134 +336,143 @@
             font-size: 0.95rem;
             transition: all 0.2s ease;
         }
-
-        .social-link:hover {
+        .social-btn:hover {
             background: var(--text-dark);
             color: #ffffff;
             border-color: var(--text-dark);
             transform: translateY(-2px);
         }
-
-        .social-link svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
+        .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
     </style>
 </head>
 <body>
 
+    <div class="bg-blur-orb"></div>
+
     <header>
-        <div class="logo">Fynzo<span>.</span></div>
+        <a href="#" class="logo">Fynzo<span>.</span></a>
         <div class="nav-links">
-            <a href="#expertise">Expertise</a>
+            <a href="#about">About</a>
             <a href="#showcase">Showcase</a>
             <a href="#contact">Contact</a>
         </div>
     </header>
 
-    <div class="hero-container">
-        <div class="badge">3+ Years Roblox Scripting</div>
-        <h1>Architecting <span>Advanced</span> Roblox Experiences</h1>
-        <p>
-            I engineer high-performance gameplay frameworks, responsive user interfaces, and fully scalable systems. Focused on clean code structures and zero lag.
-        </p>
-        <div class="btn-group">
-            <a href="#showcase" class="btn btn-filled">View Projects</a>
-            <a href="#contact" class="btn btn-outline">Get in touch</a>
+    <div class="hero-section">
+        <div class="hero-text">
+            <h1>Engineering <span>Next-Gen</span> Roblox Worlds</h1>
+            <p>
+                Specialized in deep core framework scripting, clean object-oriented infrastructure, and lag-free system deployment. Over 3 years of game architecture experience.
+            </p>
+            <div class="btn-group">
+                <a href="#showcase" class="btn btn-filled">Explore Work</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="dot dot-r"></div>
+                <div class="dot dot-y"></div>
+                <div class="dot dot-g"></div>
+                <div class="terminal-title">FynzoFramework.lua</div>
+            </div>
+            <div class="terminal-body">
+                <span class="c-keyword">local</span> FynzoEngine = {}<br>
+                FynzoEngine.__index = FynzoEngine<br><br>
+                <span class="c-keyword">function</span> FynzoEngine.<span class="c-name">NewProject</span>()<br>
+                &nbsp;&nbsp;<span class="c-keyword">local</span> self = <span class="c-name">setmetatable</span>({}, FynzoEngine)<br>
+                &nbsp;&nbsp;self.Experience = <span class="c-string">"3+ Years"</span><br>
+                &nbsp;&nbsp;self.CleanCode = <span class="c-keyword">true</span><br>
+                &nbsp;&nbsp;self.Optimization = <span class="c-string">"Maximum"</span><br>
+                &nbsp;&nbsp;<span class="c-keyword">return</span> self<br>
+                <span class="c-keyword">end</span><br><br>
+                <span class="c-comment">-- Ready for deployment</span><br>
+                <span class="c-name">print</span>(<span class="c-string">"System compiled flawlessly."</span>)
+            </div>
         </div>
     </div>
 
     <div class="main-content">
         
-        <div id="expertise" class="section-header">
-            <h2>Technical Expertise</h2>
-        </div>
-        
-        <div class="grid-3-col">
-            <div class="card">
-                <div class="card-icon">🧩</div>
-                <h3>Modular Architecture</h3>
-                <p>Developing highly organized, object-oriented ModuleScripts. Designed for quick scaling, code reusability, and flawless game loops.</p>
-                <div class="tags-list">
-                    <span class="tag">Module Code</span>
-                    <span class="tag">OOP</span>
-                    <span class="tag">Lua</span>
+        <div id="about" class="section-title">About Me</div>
+        <div class="about-box">
+            <h3>Who I Am</h3>
+            <p>
+                I don't just write individual scripts—I design comprehensive, backend game infrastructures. Over the last 3+ years in the Roblox development scene, I've specialized in handling complex networking and scalable system design.
+            </p>
+
+            <div class="highlights-list">
+                <div class="highlight-item">
+                    <div class="icon-box">🧱</div>
+                    <div class="highlight-text">
+                        <h4>Modular Architecture</h4>
+                        <p>Advanced Object-Oriented ModuleScripts crafted for high reusability and fast workflow execution.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="icon-box">⚙️</div>
+                    <div class="highlight-text">
+                        <h4>Advanced Systems</h4>
+                        <p>Handling secure server-authoritative networks, complex custom datastores, and memory leak prevention.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="icon-box">🎨</div>
+                    <div class="highlight-text">
+                        <h4>UI/UX Coding</h4>
+                        <p>Writing highly responsive client-side interface controllers with buttery-smooth animation logic.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="icon-box">✨</div>
+                    <div class="highlight-text">
+                        <h4>Industry Standard Clean Code</h4>
+                        <p>Fully documented, easily readable, and heavily optimized script structures built to last.</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-icon">⚙️</div>
-                <h3>Advanced Systems</h3>
-                <p>Engineering complex server-authoritative frameworks, secure custom data stores, and rigorous anti-exploit network replications.</p>
-                <div class="tags-list">
-                    <span class="tag">Backend</span>
-                    <span class="tag">Security</span>
-                    <span class="tag">Databases</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🎨</div>
-                <h3>UI/UX Coding</h3>
-                <p>Bringing interfaces to life with optimized client-side interactions, fluid motion design, and pixel-perfect responsiveness.</p>
-                <div class="tags-list">
-                    <span class="tag">UI Coding</span>
-                    <span class="tag">Tweening</span>
-                    <span class="tag">UX</span>
-                </div>
+            <div class="tech-row">
+                <span>Tech Stack:</span>
+                <div class="tag">Lua (Luau)</div>
+                <div class="tag">Python</div>
+                <div class="tag">C#</div>
+                <div class="tag">HTML / CSS</div>
             </div>
         </div>
 
-        <div id="showcase" class="section-header">
-            <h2>Featured Showcase</h2>
-        </div>
-
-        <div class="grid-2-col">
-            <div class="video-wrapper">
-                <video controls>
-                    <source src="video1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h4>Modular System Implementation</h4>
+        <div id="showcase" class="section-title">Featured Work</div>
+        <div class="video-grid">
+            <div class="video-card">
+                <video controls><source src="video1.mp4" type="video/mp4"></video>
+                <h4>Modular Backend Infrastructure</h4>
             </div>
-
-            <div class="video-wrapper">
-                <video controls>
-                    <source src="video2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h4>Custom Interactive Interface Engine</h4>
+            <div class="video-card">
+                <video controls><source src="video2.mp4" type="video/mp4"></video>
+                <h4>Responsive Interface & UI Engine</h4>
             </div>
-
-            <div class="video-wrapper">
-                <video controls>
-                    <source src="video3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h4>Advanced Combat & Replication Loops</h4>
+            <div class="video-card">
+                <video controls><source src="video3.mp4" type="video/mp4"></video>
+                <h4>Advanced Combat Logic Loops</h4>
             </div>
-
-            <div class="video-wrapper">
-                <video controls>
-                    <source src="video4.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h4>Full Stack Game Infrastructure</h4>
+            <div class="video-card">
+                <video controls><source src="video4.mp4" type="video/mp4"></video>
+                <h4>Full Scale Production Deployment</h4>
             </div>
         </div>
 
-        <div id="contact" class="footer-cta">
+        <div id="contact" class="contact-card">
             <h3>Let's build something epic</h3>
-            <p>I am currently open for full-time work and advanced commissions. Let's talk tech stack.</p>
+            <p>Open for full-time projects, advanced studios, and elite scripting commissions.</p>
             
-            <div class="social-row">
-                <div class="social-link">
+            <div class="social-buttons">
+                <div class="social-btn">
                     <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg>
                     <span>Discord: <strong>i_am_fynzo</strong></span>
                 </div>
                 
-                <a href="https://www.roblox.com/users/3964829458/profile" target="_blank" class="social-link">
+                <a href="https://www.roblox.com/users/3964829458/profile" target="_blank" class="social-btn">
                     <svg viewBox="0 0 60 60"><path d="M14.2,0L0,45.8L45.8,60L60,14.2L14.2,0ZM36.9,35.4L23.1,39.7L18.8,25.9L32.6,21.6L36.9,35.4Z"/></svg>
                     <span>Roblox Profile</span>
                 </a>
