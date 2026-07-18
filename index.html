@@ -3,492 +3,483 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fynzo | Advanced Roblox Scripter</title>
+    <title>Fynzo | Advanced Roblox Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* פלטת צבעים מותאמת אישית לסקין הסגול והיוקרתי שלך */
-            --bg-gradient: linear-gradient(135deg, #4c1d95, #2e1065); /* רקע סגול עמוק ומלכותי */
-            --card-bg: rgba(255, 255, 255, 0.07);
-            --card-hover-bg: rgba(255, 255, 255, 0.12);
-            --text-main: #ffffff;
-            --text-muted: #ddd6fe;
-            --accent-purple: #a78bfa; /* סגול לילך בהיר שתואם לקרניים ולחליפה */
-            --accent-glow: rgba(167, 139, 250, 0.3);
+            /* פלטת לילך וכסף בהירה, נקייה ומודרנית בהשראת האוואטר שלך */
+            --bg-main: #f8fafc;
+            --bg-gradient: linear-gradient(135deg, #f5f3ff 0%, #f1f5f9 100%);
+            --card-bg: #ffffff;
+            --text-dark: #1e1b4b; /* סגול כהה עמוק במקום שחור משעמם */
+            --text-muted: #64748b;
+            --purple-accent: #8b5cf6; /* סגול לילך חי שתואם לקרניים ולחליפה */
+            --purple-light: #ede9fe;
+            --silver-border: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(139, 92, 246, 0.04);
+            --shadow-md: 0 12px 34px rgba(139, 92, 246, 0.08);
         }
 
         body {
             background: var(--bg-gradient);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            scroll-behavior: smooth;
         }
 
-        /* תפריט ניווט כמו בצילום המסך */
-        nav {
-            position: fixed;
-            top: 25px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 10px 30px;
-            border-radius: 99px;
+        /* ניווט עליון מינימליסטי */
+        header {
+            width: 100%;
+            max-width: 1300px;
+            padding: 30px 20px;
             display: flex;
-            gap: 25px;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        nav a:hover {
-            color: var(--text-main);
-        }
-
-        /* הבלוק המרכזי העליון (Hero) */
-        .hero {
-            margin-top: 160px;
-            text-align: center;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-
-        .status-pill {
-            background: rgba(167, 139, 250, 0.15);
-            color: var(--accent-purple);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            padding: 6px 16px;
-            border-radius: 99px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin: 0 0 20px 0;
-            letter-spacing: -1px;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin: 0 0 35px 0;
-        }
-
-        /* כפתורי הנעה לפעולה */
-        .cta-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 60px;
-        }
-
-        .btn {
-            padding: 14px 28px;
-            border-radius: 99px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: var(--text-main);
-            color: #2e1065;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-main);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        /* מספרים וסטטיסטיקות */
-        .stats-grid {
-            display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 50px;
-            margin-bottom: 100px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px 0;
-            width: 100%;
-            max-width: 900px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .stat-divider {
-            width: 1px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        /* כותרות סקשנים */
-        .section-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .section-subtitle {
-            font-size: 1rem;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        /* גריד השירותים / מה אני מציע */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            width: 100%;
-            max-width: 1100px;
-            margin-bottom: 100px;
-            padding: 0 20px;
             box-sizing: border-box;
         }
 
-        .service-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 30px;
-            transition: all 0.2s ease;
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
         }
 
-        .service-card:hover {
-            background: var(--card-hover-bg);
-            transform: translateY(-4px);
-            border-color: rgba(167, 139, 250, 0.4);
-            box-shadow: 0 10px 30px var(--accent-glow);
+        .logo span {
+            color: var(--purple-accent);
         }
 
-        .service-icon {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .service-card h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .service-card p {
-            margin: 0;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* סקשן עבודות וידאו (Showcase) */
-        .showcase-container {
-            width: 100%;
-            max-width: 1100px;
-            padding: 0 20px;
-            box-sizing: border-box;
-            margin-bottom: 100px;
-        }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        .nav-links {
+            display: flex;
             gap: 30px;
         }
 
-        .video-card {
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--purple-accent);
+        }
+
+        /* סקשן פתיחה (Hero) - עיצוב בהיר ומרווח */
+        .hero-container {
+            text-align: center;
+            max-width: 850px;
+            margin-top: 80px;
+            margin-bottom: 70px;
+            padding: 0 20px;
+        }
+
+        .badge {
+            background: var(--purple-light);
+            color: var(--purple-accent);
+            padding: 8px 18px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 25px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .hero-container h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin: 0 0 20px 0;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-container h1 span {
+            background: linear-gradient(to right, var(--purple-accent), #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-container p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0 0 35px 0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* כפתורים מעוגלים ורכים */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .btn-filled {
+            background: var(--text-dark);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(30, 27, 75, 0.15);
+        }
+
+        .btn-filled:hover {
+            transform: translateY(-2px);
+            background: var(--purple-accent);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-outline {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            color: var(--text-dark);
+            border: 1px solid var(--silver-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--purple-accent);
+            color: var(--purple-accent);
+            transform: translateY(-2px);
+        }
+
+        /* גריד מה אני מציע (Expertise) */
+        .main-content {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px 100px 20px;
+            box-sizing: border-box;
+        }
+
+        .section-header {
+            margin-bottom: 45px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 90px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--silver-border);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--purple-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--purple-accent);
+        }
+
+        .card h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            margin: 0 0 20px 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* תגיות טכנולוגיה קטנות בתוך הכרטיסיות */
+        .tags-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #f1f5f9;
+            color: var(--text-dark);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* גריד סרטונים (Showcase) */
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 30px;
+            margin-bottom: 90px;
+        }
+
+        @media (max-width: 550px) {
+            .grid-2-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--silver-border);
+            border-radius: 24px;
             padding: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .video-wrapper:hover {
+            box-shadow: var(--shadow-md);
+            border-color: rgba(139, 92, 246, 0.2);
         }
 
         video {
             width: 100%;
-            border-radius: 12px;
-            background-color: #000;
+            border-radius: 16px;
+            background-color: #0f172a;
             aspect-ratio: 16 / 9;
             object-fit: cover;
             display: block;
         }
 
-        .video-card h4 {
-            margin: 15px 0 5px 0;
+        .video-wrapper h4 {
+            margin: 15px 0 0 5px;
             font-size: 1.1rem;
             font-weight: 700;
         }
 
-        /* בלוק יצירת קשר (Let's work together) */
-        .contact-section {
-            width: 100%;
-            max-width: 700px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 50px 40px;
+        /* בלוק יצירת קשר (Get in Touch) */
+        .footer-cta {
+            background: var(--card-bg);
+            border: 1px solid var(--silver-border);
+            border-radius: 32px;
+            padding: 60px 40px;
             text-align: center;
-            box-sizing: border-box;
-            margin-bottom: 80px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-section h2 {
-            font-size: 2.2rem;
+        /* אפקט עיצובי ברקע הכרטיסייה */
+        .footer-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(167, 139, 250, 0.1);
+            filter: blur(80px);
+            border-radius: 50%;
+        }
+
+        .footer-cta h3 {
+            font-size: 2.3rem;
             font-weight: 800;
-            margin: 0 0 10px 0;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
         }
 
-        .contact-section p {
-            font-size: 1rem;
+        .footer-cta p {
             color: var(--text-muted);
+            font-size: 1.1rem;
             margin: 0 0 35px 0;
         }
 
-        .social-buttons {
+        .social-row {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .social-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 16px 24px;
-            border-radius: 14px;
+        .social-link {
+            background: #f1f5f9;
+            border: 1px solid var(--silver-border);
+            padding: 16px 28px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 12px;
-            color: var(--text-main);
+            color: var(--text-dark);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
+            font-weight: 700;
+            font-size: 0.95rem;
             transition: all 0.2s ease;
         }
 
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--accent-purple);
+        .social-link:hover {
+            background: var(--text-dark);
+            color: #ffffff;
+            border-color: var(--text-dark);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--accent-glow);
         }
 
-        .social-btn svg {
-            width: 22px;
-            height: 22px;
+        .social-link svg {
+            width: 20px;
+            height: 20px;
             fill: currentColor;
-        }
-
-        /* התאמה מובייל / מסכים קטנים */
-        @media (max-width: 900px) {
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 650px) {
-            .services-grid, .video-grid {
-                grid-template-columns: 1fr;
-            }
-            .stats-grid {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .stat-divider {
-                display: none;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .social-buttons {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
-    </nav>
+    <header>
+        <div class="logo">Fynzo<span>.</span></div>
+        <div class="nav-links">
+            <a href="#expertise">Expertise</a>
+            <a href="#showcase">Showcase</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </header>
 
-    <div class="hero" id="home">
-        <div class="status-badge status-pill">● Available for work</div>
-        <h1>Advanced Roblox Scripter</h1>
+    <div class="hero-container">
+        <div class="badge">3+ Years Roblox Scripting</div>
+        <h1>Architecting <span>Advanced</span> Roblox Experiences</h1>
         <p>
-            Experienced developer specializing in game engineering and complex systems. 
-            I build secure, optimized, and perfectly modular frameworks to bring your ideas to life.
+            I engineer high-performance gameplay frameworks, responsive user interfaces, and fully scalable systems. Focused on clean code structures and zero lag.
         </p>
-        
-        <div class="cta-container">
-            <a href="#services" class="btn btn-primary">What I offer</a>
-            <a href="#contact" class="btn btn-secondary">Get in touch</a>
+        <div class="btn-group">
+            <a href="#showcase" class="btn btn-filled">View Projects</a>
+            <a href="#contact" class="btn btn-outline">Get in touch</a>
         </div>
     </div>
 
-    <div class="stats-grid">
-        <div class="stat-item">
-            <div class="stat-number">3+</div>
-            <div class="stat-label">Years Experience</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-            <div class="stat-number">100+</div>
-            <div class="stat-label">Commissions Made</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-            <div class="stat-number">Clean</div>
-            <div class="stat-label">Code Standards</div>
-        </div>
-    </div>
-
-    <div id="services">
-        <div class="section-title">What I offer</div>
-        <div class="section-subtitle">Clean, secure and well-structured scripting work.</div>
+    <div class="main-content">
         
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🛡️</div>
+        <div id="expertise" class="section-header">
+            <h2>Technical Expertise</h2>
+        </div>
+        
+        <div class="grid-3-col">
+            <div class="card">
+                <div class="card-icon">🧩</div>
+                <h3>Modular Architecture</h3>
+                <p>Developing highly organized, object-oriented ModuleScripts. Designed for quick scaling, code reusability, and flawless game loops.</p>
+                <div class="tags-list">
+                    <span class="tag">Module Code</span>
+                    <span class="tag">OOP</span>
+                    <span class="tag">Lua</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">⚙️</div>
                 <h3>Advanced Systems</h3>
-                <p>Anti-exploit mechanisms and server-authoritative structures built to scale safely.</p>
+                <p>Engineering complex server-authoritative frameworks, secure custom data stores, and rigorous anti-exploit network replications.</p>
+                <div class="tags-list">
+                    <span class="tag">Backend</span>
+                    <span class="tag">Security</span>
+                    <span class="tag">Databases</span>
+                </div>
             </div>
-            <div class="service-card">
-                <div class="service-icon">⚡</div>
-                <h3>Optimized Scripts</h3>
-                <p>High-performance backend logic that keeps your game loops running flawlessly.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🧩</div>
-                <h3>Modular & Clean</h3>
-                <p>Highly reusable, fully documented Object-Oriented Module scripts.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🛠️</div>
-                <h3>Bug Fixing</h3>
-                <p>Tracking down performance memory leaks and refactoring messy frameworks.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">💻</div>
-                <h3>UI Coding</h3>
-                <p>Silky smooth interface animations, client-side interactions, and custom menus.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🌐</div>
-                <h3>Tech Stack</h3>
-                <p>Fluent and experienced in multiple languages: Lua, Python, C#, and HTML/CSS.</p>
+
+            <div class="card">
+                <div class="card-icon">🎨</div>
+                <h3>UI/UX Coding</h3>
+                <p>Bringing interfaces to life with optimized client-side interactions, fluid motion design, and pixel-perfect responsiveness.</p>
+                <div class="tags-list">
+                    <span class="tag">UI Coding</span>
+                    <span class="tag">Tweening</span>
+                    <span class="tag">UX</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="work" class="showcase-container">
-        <div class="section-title">Showcase</div>
-        <div class="section-subtitle">A glimpse into some of my core mechanics and implementations.</div>
-        
-        <div class="video-grid">
-            <div class="video-card">
+        <div id="showcase" class="section-header">
+            <h2>Featured Showcase</h2>
+        </div>
+
+        <div class="grid-2-col">
+            <div class="video-wrapper">
                 <video controls>
                     <source src="video1.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <h4>Modular Core Framework</h4>
+                <h4>Modular System Implementation</h4>
             </div>
-            <div class="video-card">
+
+            <div class="video-wrapper">
                 <video controls>
                     <source src="video2.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <h4>Advanced UI Animation Engine</h4>
+                <h4>Custom Interactive Interface Engine</h4>
             </div>
-            <div class="video-card">
+
+            <div class="video-wrapper">
                 <video controls>
                     <source src="video3.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <h4>Complex Combat & Data System</h4>
+                <h4>Advanced Combat & Replication Loops</h4>
             </div>
-            <div class="video-card">
+
+            <div class="video-wrapper">
                 <video controls>
                     <source src="video4.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <h4>Custom Game Mechanics</h4>
+                <h4>Full Stack Game Infrastructure</h4>
             </div>
         </div>
-    </div>
 
-    <div id="contact" class="contact-section">
-        <h2>Let's work together</h2>
-        <p>Reach out on Roblox or Discord — I'm active most of the day.</p>
-        
-        <div class="social-buttons">
-            <div class="social-btn">
-                <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg>
-                <span>Discord: <strong>i_am_fynzo</strong></span>
-            </div>
+        <div id="contact" class="footer-cta">
+            <h3>Let's build something epic</h3>
+            <p>I am currently open for full-time work and advanced commissions. Let's talk tech stack.</p>
             
-            <a href="https://www.roblox.com/users/3964829458/profile" target="_blank" class="social-btn">
-                <svg viewBox="0 0 60 60"><path d="M14.2,0L0,45.8L45.8,60L60,14.2L14.2,0ZM36.9,35.4L23.1,39.7L18.8,25.9L32.6,21.6L36.9,35.4Z"/></svg>
-                <span>Roblox Profile</span>
-            </a>
+            <div class="social-row">
+                <div class="social-link">
+                    <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg>
+                    <span>Discord: <strong>i_am_fynzo</strong></span>
+                </div>
+                
+                <a href="https://www.roblox.com/users/3964829458/profile" target="_blank" class="social-link">
+                    <svg viewBox="0 0 60 60"><path d="M14.2,0L0,45.8L45.8,60L60,14.2L14.2,0ZM36.9,35.4L23.1,39.7L18.8,25.9L32.6,21.6L36.9,35.4Z"/></svg>
+                    <span>Roblox Profile</span>
+                </a>
+            </div>
         </div>
+
     </div>
 
 </body>
