@@ -378,6 +378,16 @@
             display: block;
         }
 
+        /* עיצוב לסרטוני יוטיוב מוטמעים - זהה לעיצוב של video */
+        .yt-video {
+            width: 100%;
+            border-radius: 14px;
+            background-color: #000;
+            aspect-ratio: 16 / 9;
+            display: block;
+            border: none;
+        }
+
         .video-card h4 { 
             margin: 20px 0 5px 5px; 
             font-size: 1.15rem; 
@@ -514,19 +524,19 @@
         <div id="showcase" class="section-title">Featured Work</div>
         <div class="video-grid">
             <div class="video-card">
-                <video controls><source src="video1.mp4" type="video/mp4"></video>
+                <iframe class="yt-video" src="https://www.youtube.com/embed/mYliIWon8bU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <h4>Modular Backend Infrastructure</h4>
             </div>
             <div class="video-card">
-                <video controls><source src="video2.mp4" type="video/mp4"></video>
+                <iframe class="yt-video" src="https://www.youtube.com/embed/mYliIWon8bU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <h4>Responsive Interface & UI Engine</h4>
             </div>
             <div class="video-card">
-                <video controls><source src="video3.mp4" type="video/mp4"></video>
+                <iframe class="yt-video" src="https://www.youtube.com/embed/mYliIWon8bU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <h4>Advanced Combat Logic Loops</h4>
             </div>
             <div class="video-card">
-                <video controls><source src="video4.mp4" type="video/mp4"></video>
+                <iframe class="yt-video" src="https://www.youtube.com/embed/mYliIWon8bU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <h4>Full Scale Production Deployment</h4>
             </div>
         </div>
@@ -536,10 +546,11 @@
             <p>Open for full-time projects, advanced studios, and elite scripting commissions.</p>
             
             <div class="social-buttons">
-                <div class="social-btn">
-                    <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg>
-                    <span>Discord: <strong>i_am_fynzo</strong></span>
-                </div>
+               <a href="https://discord.com/users/1375367133319532614" target="_blank" class="social-btn">
+    <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg>
+    <span>Discord: <strong>i_am_fynzo</strong></span>
+</a>
+
                 
                 <a href="https://www.roblox.com/users/3964829458/profile" target="_blank" class="social-btn">
                     <svg viewBox="0 0 60 60"><path d="M14.2,0L0,45.8L45.8,60L60,14.2L14.2,0ZM36.9,35.4L23.1,39.7L18.8,25.9L32.6,21.6L36.9,35.4Z"/></svg>
