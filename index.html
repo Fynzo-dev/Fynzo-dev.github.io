@@ -5,98 +5,187 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fynzo's Portfolio</title>
     <style>
+        :root {
+            --bg-dark: #0f172a;
+            --primary-neon: #0ea5e9;
+            --secondary-neon: #38bdf8;
+            --text-light: #f8fafc;
+        }
+
         body {
-            background-color: #d4f1f9; /* רקע תכלת נעים */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
+            background: radial-gradient(circle at top right, #1e293b, var(--bg-dark));
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-light);
             margin: 0;
             padding: 0;
+            min-height: 100vh;
         }
+
+        /* כותרת עליונה עתידנית */
         header {
-            background-color: #1a252f;
-            color: white;
             text-align: center;
-            padding: 25px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px 20px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.2);
         }
-        h1 {
+
+        header h1 {
             margin: 0;
-            font-size: 2.8em;
-            letter-spacing: 2px;
-            font-family: 'Arial', sans-serif;
+            font-size: 3.5em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #67e8f9, var(--primary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(14, 165, 233, 0.3);
         }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+
+        /* פריסה על כל המסך */
+        .wrapper {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            box-sizing: border-box;
         }
+
         h2 {
-            color: #2980b9;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 0;
+            font-size: 2.2em;
+            color: var(--secondary-neon);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .skills-container {
+
+        h2::after {
+            content: '';
+            flex-grow: 1;
+            height: 2px;
+            background: linear-gradient(to left, rgba(14, 165, 233, 0.5), transparent);
+            margin-right: 15px;
+        }
+
+        /* כרטיסיית אודות ענקית ומטורפת */
+        .hero-section {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 4px solid var(--primary-neon);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(5px);
+            margin-bottom: 40px;
+        }
+
+        .hero-section p {
+            font-size: 1.4em;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+        }
+
+        .highlight {
+            color: var(--secondary-neon);
+            font-weight: bold;
+        }
+
+        /* רשימת היתרונות של הקוד שלך */
+        .pro-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
             margin: 25px 0;
         }
-        .skills {
+
+        .feature-tag {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .feature-tag:hover {
+            border-color: var(--secondary-neon);
+            background: rgba(14, 165, 233, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.2);
+        }
+
+        /* תגי שפות תכנות */
+        .skills-grid {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            margin-top: 15px;
         }
-        /* עיצוב מגניב לשפות התכנות */
+
         .skill-badge {
-            background: linear-gradient(135deg, #6dd5ed, #2193b0);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 1.1em;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: default;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
+
         .skill-badge:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            border-color: transparent;
+            transform: scale(1.1) rotate(-2deg);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
         }
-        .experience {
-            font-size: 1.25em;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            background-color: #f0f8ff;
-            padding: 15px;
-            border-right: 5px solid #3498db;
-            border-radius: 5px;
-        }
-        /* הגריד של הסרטונים */
+
+        /* גריד סרטונים רחב על כל המסך */
         .videos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
             margin-top: 25px;
         }
+
+        @media (max-width: 500px) {
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .video-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
-        .video-card p {
-            margin: 10px 0 0 0;
-            font-weight: bold;
-            color: #555;
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(14, 165, 233, 0.4);
+            background: rgba(30, 41, 59, 0.6);
         }
+
         video {
             width: 100%;
-            border-radius: 8px;
+            border-radius: 10px;
             background-color: #000;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .video-card p {
+            margin: 15px 0 0 0;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #cbd5e1;
+            text-align: right;
         }
     </style>
 </head>
@@ -106,25 +195,32 @@
         <h1 dir="ltr">Fynzo's Portfolio</h1>
     </header>
 
-    <div class="container">
-        <h2>קצת עליי</h2>
+    <div class="wrapper">
         
-        <div class="experience">
-            <strong>מעל 3 שנים ניסיון בפיתוח משחקים ברובלוקס (Scripting).</strong><br>
-            אני מתמחה ביצירת מערכות, כתיבת קוד נקי והפיכת רעיונות למשחקים שעובדים בצורה חלקה.
-        </div>
+        <h2>קצת עליי</h2>
+        <div class="hero-section">
+            <p>
+                אני מפתח ומקודד עם <span class="highlight">מעל 3 שנים ניסיון מעשי בפיתוח משחקים ברובלוקס (Scripting)</span>. 
+                אני לא סתם כותב קוד – אני בונה ארכיטקטורה שלמה למשחקים.
+            </p>
+            
+            <div class="pro-features">
+                <div class="feature-tag">💻 עבודה מודולורית (Module Code)</div>
+                <div class="feature-tag">⚙️ מערכות מתקדמות ומורכבות</div>
+                <div class="feature-tag">🎨 UI Coding ברמה הגבוהה ביותר</div>
+                <div class="feature-tag">✨ קוד נקי, מסודר ואופטימלי</div>
+            </div>
 
-        <div class="skills-container">
-            <h3>השפות שאני שולט בהן:</h3>
-            <div class="skills" dir="ltr">
-                <div class="skill-badge">Python</div>
-                <div class="skill-badge">C#</div>
+            <h3 style="color: #94a3b8; margin-bottom: 15px;">הכלים והשפות שלי:</h3>
+            <div class="skills-grid" dir="ltr">
                 <div class="skill-badge">Lua</div>
-                <div class="skill-badge">HTML</div>
+                <div class="skill-badge">Python</div>
+                <div class="skill-badge font-csharp">C#</div>
+                <div class="skill-badge">HTML / CSS</div>
             </div>
         </div>
 
-        <h2>העבודות שלי</h2>
+        <h2>הפרויקטים שלי</h2>
         <div class="videos-grid">
             
             <div class="video-card">
@@ -132,7 +228,7 @@
                     <source src="video1.mp4" type="video/mp4">
                     הדפדפן שלך לא תומך בהצגת וידאו.
                 </video>
-                <p>עבודה 1 - מערכת קרב ברובלוקס</p>
+                <p>🎬 הצגת קוד מודולורי ומערכת מתקדמת</p>
             </div>
             
             <div class="video-card">
@@ -140,7 +236,7 @@
                     <source src="video2.mp4" type="video/mp4">
                     הדפדפן שלך לא תומך בהצגת וידאו.
                 </video>
-                <p>עבודה 2 - ממשק משתמש (UI)</p>
+                <p>🎬 מערכת UI Coding אינטראקטיבית</p>
             </div>
             
             <div class="video-card">
@@ -148,7 +244,7 @@
                     <source src="video3.mp4" type="video/mp4">
                     הדפדפן שלך לא תומך בהצגת וידאו.
                 </video>
-                <p>עבודה 3 - מיני-גיים מותאם אישית</p>
+                <p>🎬 פרויקט רובלוקס מורכב - סקריפטים נקיים</p>
             </div>
             
             <div class="video-card">
@@ -156,7 +252,7 @@
                     <source src="video4.mp4" type="video/mp4">
                     הדפדפן שלך לא תומך בהצגת וידאו.
                 </video>
-                <p>עבודה 4 - תכנות מתקדם ב-Lua</p>
+                <p>🎬 מכניקת משחק מתקדמת ב-Lua</p>
             </div>
 
         </div>
