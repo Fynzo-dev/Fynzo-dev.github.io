@@ -6,24 +6,34 @@
     <title>Fynzo | Advanced Roblox Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            --card-bg: #ffffff;
-            --text-dark: #1e1b4b; 
-            --text-muted: #64748b;
-            --purple-accent: #8b5cf6; 
-            --purple-light: #ede9fe;
-            --silver-border: #e2e8f0;
-            --shadow-sm: 0 2px 8px rgba(139, 92, 246, 0.04);
-            --shadow-md: 0 16px 40px rgba(139, 92, 246, 0.08);
+            --bg-dark: #09090b;
+            --card-bg: rgba(20, 20, 25, 0.7);
+            --card-border: rgba(139, 92, 246, 0.15);
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --purple-neon: #a855f7;
+            --purple-glow: rgba(168, 85, 247, 0.4);
+            --cyan-neon: #06b6d4;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            background: var(--bg-gradient);
-            color: var(--text-dark);
+            background-color: var(--bg-dark);
+            /* רשת מפתחים זזה ברקע */
+            background-image: 
+                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             padding: 0;
@@ -31,323 +41,402 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
             overflow-x: hidden;
+            animation: gridMove 20s linear infinite;
         }
 
-        /* אלמנטים עיצוביים זזים ברקע (בלתי אפשרי לפספס, אבל נקי מאוד) */
-        .bg-blur-orb {
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 30px; }
+        }
+
+        /* הילות אור זזות ברקע */
+        .glow-orb {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%);
+            top: -10%;
+            right: -10%;
+            z-index: -1;
+            filter: blur(60px);
+            animation: float 10s ease-in-out infinite alternate;
+        }
+
+        .glow-orb-2 {
             position: absolute;
             width: 400px;
             height: 400px;
-            background: rgba(167, 139, 250, 0.15);
-            filter: blur(100px);
-            border-radius: 50%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+            bottom: 20%;
+            left: -10%;
             z-index: -1;
-            top: 10%;
-            right: -10%;
-            animation: floatOrb 8s ease-in-out infinite alternate;
+            filter: blur(50px);
+            animation: float 8s ease-in-out infinite alternate-reverse;
         }
 
-        @keyframes floatOrb {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(30px) scale(1.1); }
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(40px) scale(1.1); }
         }
 
-        /* ניווט */
         header {
             width: 100%;
             max-width: 1200px;
-            padding: 30px 20px;
+            padding: 40px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-sizing: border-box;
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            color: var(--text-dark);
+            color: var(--text-main);
             text-decoration: none;
+            letter-spacing: -1px;
         }
 
-        .logo span { color: var(--purple-accent); }
+        .logo span { color: var(--purple-neon); text-shadow: 0 0 15px var(--purple-neon); }
 
-        .nav-links { display: flex; gap: 30px; }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+            background: rgba(255, 255, 255, 0.03); 
+            padding: 10px 24px; 
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.2s ease;
+            font-size: 0.9rem;
         }
-        .nav-links a:hover { color: var(--purple-accent); }
+        .nav-links a:hover { color: var(--text-main); text-shadow: 0 0 8px #fff; }
 
-        /* Hero Section משולב עם קופסת הקוד */
         .hero-section {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
-            gap: 40px;
+            gap: 60px;
             max-width: 1200px;
-            margin-top: 60px;
-            margin-bottom: 80px;
+            margin: 80px 0;
             padding: 0 20px;
             align-items: center;
-            box-sizing: border-box;
         }
 
         @media (max-width: 960px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-                margin-top: 30px;
-            }
+            .hero-section { grid-template-columns: 1fr; text-align: center; margin: 40px 0; }
             .btn-group { justify-content: center; }
             .terminal-window { margin: 0 auto; }
         }
 
         .hero-text h1 {
-            font-size: 3.6rem;
+            font-size: 4rem;
             font-weight: 800;
-            line-height: 1.15;
-            margin: 0 0 20px 0;
-            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            letter-spacing: -2px;
         }
 
         .hero-text h1 span {
-            background: linear-gradient(to right, var(--purple-accent), #c084fc);
+            background: linear-gradient(to right, #fff, var(--purple-neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-text p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--text-muted);
             line-height: 1.6;
-            margin: 0 0 35px 0;
+            margin: 0 0 40px 0;
         }
 
-        .btn-group { display: flex; gap: 15px; }
+        .btn-group { display: flex; gap: 20px; }
         .btn {
-            padding: 14px 32px;
-            border-radius: 16px;
+            padding: 16px 36px;
+            border-radius: 14px;
             font-size: 0.95rem;
             font-weight: 700;
             text-decoration: none;
-            transition: all 0.25s ease;
             cursor: pointer;
         }
+        
         .btn-filled {
-            background: var(--text-dark);
+            background: var(--purple-neon);
             color: #ffffff;
-            box-shadow: 0 4px 12px rgba(30, 27, 75, 0.15);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
         }
         .btn-filled:hover {
-            background: var(--purple-accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.6);
         }
+        
         .btn-outline {
-            background: var(--card-bg);
-            color: var(--text-dark);
-            border: 1px solid var(--silver-border);
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(5px);
         }
         .btn-outline:hover {
-            border-color: var(--purple-accent);
-            color: var(--purple-accent);
-            transform: translateY(-2px);
+            border-color: var(--purple-neon);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+            transform: translateY(-3px);
         }
 
-        /* אלמנט ה"וואו" - קופסת הקוד המקצועית */
+        /* הטרמינל האגדי */
         .terminal-window {
-            background: #0f172a;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #09090b;
+            border-radius: 16px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--card-border);
             overflow: hidden;
             max-width: 500px;
             width: 100%;
-            font-family: 'Fira Code', monospace;
+            font-family: var(--font-mono);
             font-size: 0.85rem;
             text-align: left;
+            position: relative;
+        }
+
+        .terminal-window::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--purple-neon), transparent);
         }
 
         .terminal-header {
-            background: #1e293b;
-            padding: 12px 18px;
+            background: #121214;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
             gap: 8px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
         .dot-r { background: #ef4444; }
         .dot-y { background: #eab308; }
         .dot-g { background: #22c55e; }
-        .terminal-title { color: #94a3b8; margin-left: 10px; font-size: 0.8rem; }
+        .terminal-title { color: #71717a; margin-left: 10px; font-size: 0.8rem; }
 
-        .terminal-body { padding: 20px; color: #f8fafc; line-height: 1.6; }
-        .c-keyword { color: #f472b6; }
+        .terminal-body { 
+            padding: 24px; 
+            color: #e4e4e7; 
+            line-height: 1.7; 
+            min-height: 240px;
+            white-space: pre-wrap;
+        }
+        .c-keyword { color: #f472b6; font-weight: 500; }
         .c-string { color: #34d399; }
         .c-name { color: #60a5fa; }
-        .c-comment { color: #64748b; font-style: italic; }
+        .c-comment { color: #52525b; font-style: italic; }
+        
+        /* סמן מקליד מהבהב */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--cyan-neon);
+            margin-left: 4px;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        /* סקשן אודות (About Me) המשודרג */
+        /* סקשן אודות בעיצוב Glassmorphism */
         .main-content {
             width: 100%;
             max-width: 1200px;
             padding: 0 20px 100px 20px;
-            box-sizing: border-box;
         }
 
         .section-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
-            margin-bottom: 35px;
-            letter-spacing: -0.5px;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0; width: 40px; height: 3px;
+            background: var(--purple-neon);
+            box-shadow: 0 0 10px var(--purple-neon);
         }
 
         .about-box {
             background: var(--card-bg);
-            border: 1px solid var(--silver-border);
-            border-radius: 28px;
-            padding: 45px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 80px;
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 50px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .about-box h3 { margin-top: 0; font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
-        .about-box p { color: var(--text-muted); font-size: 1.15rem; line-height: 1.6; margin: 0 0 35px 0; }
+        .about-box h3 { font-size: 1.6rem; font-weight: 700; margin: 0 0 20px 0; }
+        .about-box p { color: var(--text-muted); font-size: 1.15rem; line-height: 1.7; margin-bottom: 45px; }
 
-        /* עיצוב רשימת היתרונות שלך (Clean & Sharp) */
         .highlights-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-bottom: 40px;
+            gap: 35px;
+            margin-bottom: 50px;
         }
 
         @media (max-width: 650px) { .highlights-list { grid-template-columns: 1fr; } }
 
         .highlight-item {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             align-items: flex-start;
+            background: rgba(255,255,255,0.02);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        
+        .highlight-item:hover {
+            background: rgba(139, 92, 246, 0.05);
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: scale(1.02);
         }
 
         .icon-box {
-            background: var(--purple-light);
-            color: var(--purple-accent);
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--purple-neon);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             flex-shrink: 0;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
         }
 
-        .highlight-text h4 { margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700; }
-        .highlight-text p { margin: 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.4; }
+        .highlight-text h4 { margin: 0 0 8px 0; font-size: 1.15rem; font-weight: 700; }
+        .highlight-text p { margin: 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
 
         .tech-row {
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
-            border-top: 1px solid var(--silver-border);
-            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 35px;
         }
-        .tech-row span { font-weight: 700; font-size: 0.95rem; color: var(--text-muted); margin-right: 10px; }
+        .tech-row span { font-weight: 700; font-size: 0.95rem; color: var(--text-muted); margin-right: 15px; }
+        
         .tag {
-            background: #f1f5f9;
-            color: var(--text-dark);
-            padding: 6px 16px;
-            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            padding: 8px 20px;
+            border-radius: 10px;
             font-size: 0.85rem;
             font-weight: 600;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .tag:hover {
+            background: transparent;
+            border-color: var(--cyan-neon);
+            color: var(--cyan-neon);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
         }
 
-        /* גריד סרטונים (Showcase) */
+        /* גריד סרטונים עתידני */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-bottom: 80px;
+            gap: 40px;
+            margin-bottom: 100px;
         }
 
         @media (max-width: 650px) { .video-grid { grid-template-columns: 1fr; } }
 
         .video-card {
             background: var(--card-bg);
-            border: 1px solid var(--silver-border);
-            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
             padding: 16px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+            position: relative;
         }
 
         .video-card:hover {
-            box-shadow: var(--shadow-md);
-            border-color: rgba(139, 92, 246, 0.2);
-            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);
+            border-color: var(--purple-neon);
+            transform: translateY(-6px);
         }
 
         video {
             width: 100%;
-            border-radius: 16px;
-            background-color: #0f172a;
+            border-radius: 14px;
+            background-color: #000;
             aspect-ratio: 16 / 9;
             object-fit: cover;
             display: block;
         }
 
-        .video-card h4 { margin: 15px 0 0 5px; font-size: 1.1rem; font-weight: 700; }
-
-        /* יצירת קשר (Get in Touch) */
-        .contact-card {
-            background: var(--card-bg);
-            border: 1px solid var(--silver-border);
-            border-radius: 32px;
-            padding: 50px 40px;
-            text-align: center;
-            box-shadow: var(--shadow-md);
+        .video-card h4 { 
+            margin: 20px 0 5px 5px; 
+            font-size: 1.15rem; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
         }
 
-        .contact-card h3 { font-size: 2.2rem; font-weight: 800; margin: 0 0 10px 0; }
-        .contact-card p { color: var(--text-muted); margin: 0 0 35px 0; font-size: 1.05rem; }
+        /* כרטיסיית קשר מטורפת */
+        .contact-card {
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent), var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 60px 40px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
 
-        .social-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .contact-card h3 { font-size: 2.5rem; font-weight: 800; margin: 0 0 15px 0; letter-spacing: -1.5px; }
+        .contact-card p { color: var(--text-muted); margin: 0 0 40px 0; font-size: 1.1rem; }
+
+        .social-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        
         .social-btn {
-            background: #f1f5f9;
-            border: 1px solid var(--silver-border);
-            padding: 16px 28px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 18px 34px;
             border-radius: 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            color: var(--text-dark);
+            gap: 14px;
+            color: var(--text-main);
             text-decoration: none;
             font-weight: 700;
             font-size: 0.95rem;
-            transition: all 0.2s ease;
         }
+        
         .social-btn:hover {
-            background: var(--text-dark);
-            color: #ffffff;
-            border-color: var(--text-dark);
-            transform: translateY(-2px);
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(255,255,255,0.2);
         }
-        .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .social-btn svg { width: 22px; height: 22px; fill: currentColor; }
     </style>
 </head>
 <body>
 
-    <div class="bg-blur-orb"></div>
+    <div class="glow-orb"></div>
+    <div class="glow-orb-2"></div>
 
     <header>
         <a href="#" class="logo">Fynzo<span>.</span></a>
@@ -377,19 +466,7 @@
                 <div class="dot dot-g"></div>
                 <div class="terminal-title">FynzoFramework.lua</div>
             </div>
-            <div class="terminal-body">
-                <span class="c-keyword">local</span> FynzoEngine = {}<br>
-                FynzoEngine.__index = FynzoEngine<br><br>
-                <span class="c-keyword">function</span> FynzoEngine.<span class="c-name">NewProject</span>()<br>
-                &nbsp;&nbsp;<span class="c-keyword">local</span> self = <span class="c-name">setmetatable</span>({}, FynzoEngine)<br>
-                &nbsp;&nbsp;self.Experience = <span class="c-string">"3+ Years"</span><br>
-                &nbsp;&nbsp;self.CleanCode = <span class="c-keyword">true</span><br>
-                &nbsp;&nbsp;self.Optimization = <span class="c-string">"Maximum"</span><br>
-                &nbsp;&nbsp;<span class="c-keyword">return</span> self<br>
-                <span class="c-keyword">end</span><br><br>
-                <span class="c-comment">-- Ready for deployment</span><br>
-                <span class="c-name">print</span>(<span class="c-string">"System compiled flawlessly."</span>)
-            </div>
+            <div class="terminal-body" id="typewriter"><span class="cursor"></span></div>
         </div>
     </div>
 
@@ -481,5 +558,71 @@
 
     </div>
 
+    <script>
+        const codeLines = [
+            '<span class="c-keyword">local</span> FynzoEngine = {}',
+            'FynzoEngine.__index = FynzoEngine',
+            '',
+            '<span class="c-keyword">function</span> FynzoEngine.<span class="c-name">NewProject</span>()',
+            '  <span class="c-keyword">local</span> self = <span class="c-name">setmetatable</span>({}, FynzoEngine)',
+            '  self.Experience = <span class="c-string">"3+ Years"</span>',
+            '  self.CleanCode = <span class="c-keyword">true</span>',
+            '  self.Optimization = <span class="c-string">"Maximum"</span>',
+            '  <span class="c-keyword">return</span> self',
+            '<span class="c-keyword">end</span>',
+            '',
+            '<span class="c-comment">-- Ready for deployment</span>',
+            '<span class="c-name">print</span>(<span class="c-string">"System compiled flawlessly."</span>)'
+        ];
+
+        const typewriter = document.getElementById('typewriter');
+        let lineIndex = 0;
+        let charIndex = 0;
+        let currentHTML = '';
+
+        function type() {
+            if (lineIndex < codeLines.length) {
+                let currentLine = codeLines[lineIndex];
+                
+                // אם השורה ריקה, פשוט נוסיף ירידת שורה
+                if (currentLine === '') {
+                    currentHTML += '<br>';
+                    typewriter.innerHTML = currentHTML + '<span class="cursor"></span>';
+                    lineIndex++;
+                    setTimeout(type, 200);
+                    return;
+                }
+
+                // טריק כדי להקליד שורות שמכילות תגיות HTML בצורה חלקה
+                if (currentLine.startsWith('<span') || currentLine.includes('<span')) {
+                    currentHTML += currentLine + '<br>';
+                    typewriter.innerHTML = currentHTML + '<span class="cursor"></span>';
+                    lineIndex++;
+                    setTimeout(type, 250);
+                } else {
+                    // הקלדה תו אחר תו לשורות רגילות
+                    if (charIndex < currentLine.length) {
+                        currentHTML += currentLine[charIndex];
+                        typewriter.innerHTML = currentHTML + '<span class="cursor"></span>';
+                        charIndex++;
+                        setTimeout(type, 30);
+                    } else {
+                        currentHTML += '<br>';
+                        charIndex = 0;
+                        lineIndex++;
+                        setTimeout(type, 200);
+                    }
+                }
+            } else {
+                // מוריד את הסמן הזמני ומשאיר אותו בסוף הקוד
+                typewriter.innerHTML = currentHTML + '<span class="cursor"></span>';
+            }
+        }
+
+        // הפעלה ראשונית של האפקט מיד עם טעינת הדף
+        window.onload = () => {
+            setTimeout(type, 500);
+        };
+    </script>
 </body>
 </html>
