@@ -16,23 +16,21 @@
             --text-main: #f4f4f5;
             --text-muted: #a1a1aa;
             --purple-neon: #a855f7;
-            --purple-glow: rgba(168, 85, 247, 0.4);
             --cyan-neon: #06b6d4;
             --font-mono: 'Fira Code', monospace;
         }
 
         * {
             box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
             background-color: var(--bg-dark);
-            /* רשת מפתחים זזה ברקע */
+            /* רשת סטטית לביצועים מקסימליים - ללא תנועה מקרטעת */
             background-image: 
-                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
+                linear-gradient(rgba(139, 92, 246, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.015) 1px, transparent 1px);
+            background-size: 40px 40px;
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
@@ -42,42 +40,39 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            animation: gridMove 20s linear infinite;
         }
 
-        @keyframes gridMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 30px; }
-        }
-
-        /* הילות אור זזות ברקע */
+        /* הילות אור אופטימליות ללא filter: blur כבד */
         .glow-orb {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%);
-            top: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(168, 85, 247, 0.03) 40%, transparent 70%);
+            top: -15%;
             right: -10%;
             z-index: -1;
-            filter: blur(60px);
-            animation: float 10s ease-in-out infinite alternate;
+            transform: translate3d(0,0,0);
+            will-change: transform;
+            animation: float 12s ease-in-out infinite alternate;
         }
 
         .glow-orb-2 {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
-            bottom: 20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 65%);
+            bottom: 10%;
             left: -10%;
             z-index: -1;
-            filter: blur(50px);
-            animation: float 8s ease-in-out infinite alternate-reverse;
+            transform: translate3d(0,0,0);
+            will-change: transform;
+            animation: float 10s ease-in-out infinite alternate-reverse;
         }
 
+        /* תנועה חלקה מבוססת translate3d שמפעילה את ה-GPU */
         @keyframes float {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(40px) scale(1.1); }
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            100% { transform: translate3d(0, 20px, 0) scale(1.05); }
         }
 
         header {
@@ -107,6 +102,7 @@
             border-radius: 100px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         .nav-links a {
@@ -114,8 +110,9 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
-        .nav-links a:hover { color: var(--text-main); text-shadow: 0 0 8px #fff; }
+        .nav-links a:hover { color: var(--text-main); }
 
         .hero-section {
             display: grid;
@@ -162,35 +159,33 @@
             font-weight: 700;
             text-decoration: none;
             cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease;
         }
         
         .btn-filled {
             background: var(--purple-neon);
             color: #ffffff;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
         }
         .btn-filled:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.6);
+            transform: translate3d(0, -2px, 0);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
         }
         
         .btn-outline {
             background: transparent;
             color: var(--text-main);
             border: 1px solid rgba(255,255,255,0.15);
-            backdrop-filter: blur(5px);
         }
         .btn-outline:hover {
             border-color: var(--purple-neon);
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
-            transform: translateY(-3px);
+            transform: translate3d(0, -2px, 0);
         }
 
-        /* הטרמינל האגדי */
         .terminal-window {
             background: #09090b;
             border-radius: 16px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 92, 246, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--card-border);
             overflow: hidden;
             max-width: 500px;
@@ -235,7 +230,6 @@
         .c-name { color: #60a5fa; }
         .c-comment { color: #52525b; font-style: italic; }
         
-        /* סמן מקליד מהבהב */
         .cursor {
             display: inline-block;
             width: 8px;
@@ -247,7 +241,6 @@
         }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* סקשן אודות בעיצוב Glassmorphism */
         .main-content {
             width: 100%;
             max-width: 1200px;
@@ -268,7 +261,6 @@
             position: absolute;
             bottom: -5px; left: 0; width: 40px; height: 3px;
             background: var(--purple-neon);
-            box-shadow: 0 0 10px var(--purple-neon);
         }
 
         .about-box {
@@ -276,7 +268,8 @@
             border: 1px solid var(--card-border);
             border-radius: 24px;
             padding: 50px;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
@@ -296,20 +289,21 @@
             display: flex;
             gap: 20px;
             align-items: flex-start;
-            background: rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.015);
             padding: 20px;
             border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.03);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease;
         }
         
         .highlight-item:hover {
-            background: rgba(139, 92, 246, 0.05);
-            border-color: rgba(139, 92, 246, 0.3);
-            transform: scale(1.02);
+            background: rgba(139, 92, 246, 0.04);
+            border-color: rgba(139, 92, 246, 0.25);
+            transform: scale(1.015);
         }
 
         .icon-box {
-            background: rgba(168, 85, 247, 0.1);
+            background: rgba(168, 85, 247, 0.08);
             color: var(--purple-neon);
             width: 44px;
             height: 44px;
@@ -319,8 +313,7 @@
             justify-content: center;
             font-size: 1.25rem;
             flex-shrink: 0;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.15);
         }
 
         .highlight-text h4 { margin: 0 0 8px 0; font-size: 1.15rem; font-weight: 700; }
@@ -337,22 +330,20 @@
         .tech-row span { font-weight: 700; font-size: 0.95rem; color: var(--text-muted); margin-right: 15px; }
         
         .tag {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.04);
             color: var(--text-main);
             padding: 8px 20px;
             border-radius: 10px;
             font-size: 0.85rem;
             font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: border-color 0.2s ease, color 0.2s ease;
         }
         .tag:hover {
-            background: transparent;
             border-color: var(--cyan-neon);
             color: var(--cyan-neon);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
         }
 
-        /* גריד סרטונים עתידני */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -367,14 +358,15 @@
             border: 1px solid var(--card-border);
             border-radius: 20px;
             padding: 16px;
-            backdrop-filter: blur(20px);
-            position: relative;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .video-card:hover {
-            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.1);
             border-color: var(--purple-neon);
-            transform: translateY(-6px);
+            transform: translate3d(0, -4px, 0);
         }
 
         video {
@@ -393,14 +385,14 @@
             letter-spacing: -0.5px;
         }
 
-        /* כרטיסיית קשר מטורפת */
         .contact-card {
-            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.15), transparent), var(--card-bg);
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.1), transparent), var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 28px;
             padding: 60px 40px;
             text-align: center;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
 
@@ -421,14 +413,14 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 0.95rem;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, color 0.2s ease;
         }
         
         .social-btn:hover {
             background: #fff;
             color: #000;
             border-color: #fff;
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(255,255,255,0.2);
+            transform: translate3d(0, -3px, 0);
         }
         .social-btn svg { width: 22px; height: 22px; fill: currentColor; }
     </style>
@@ -584,44 +576,39 @@
             if (lineIndex < codeLines.length) {
                 let currentLine = codeLines[lineIndex];
                 
-                // אם השורה ריקה, פשוט נוסיף ירידת שורה
                 if (currentLine === '') {
                     currentHTML += '<br>';
                     typewriter.innerHTML = currentHTML + '<span class="cursor"></span>';
                     lineIndex++;
-                    setTimeout(type, 200);
+                    setTimeout(type, 100);
                     return;
                 }
 
-                // טריק כדי להקליד שורות שמכילות תגיות HTML בצורה חלקה
                 if (currentLine.startsWith('<span') || currentLine.includes('<span')) {
                     currentHTML += currentLine + '<br>';
                     typewriter.innerHTML = currentHTML + '<span class="cursor"></span>';
                     lineIndex++;
-                    setTimeout(type, 250);
+                    setTimeout(type, 120);
                 } else {
-                    // הקלדה תו אחר תו לשורות רגילות
                     if (charIndex < currentLine.length) {
                         currentHTML += currentLine[charIndex];
                         typewriter.innerHTML = currentHTML + '<span class="cursor"></span>';
                         charIndex++;
-                        setTimeout(type, 30);
+                        setTimeout(type, 20);
                     } else {
                         currentHTML += '<br>';
                         charIndex = 0;
                         lineIndex++;
-                        setTimeout(type, 200);
+                        setTimeout(type, 100);
                     }
                 }
             } else {
-                // מוריד את הסמן הזמני ומשאיר אותו בסוף הקוד
                 typewriter.innerHTML = currentHTML + '<span class="cursor"></span>';
             }
         }
 
-        // הפעלה ראשונית של האפקט מיד עם טעינת הדף
         window.onload = () => {
-            setTimeout(type, 500);
+            setTimeout(type, 300);
         };
     </script>
 </body>
