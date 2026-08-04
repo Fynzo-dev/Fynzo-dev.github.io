@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fynzo | Advanced Roblox Engineer</title>
+    <title>Fynzo | Elite Roblox Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #09090b;
-            --card-bg: rgba(20, 20, 25, 0.7);
-            --card-border: rgba(139, 92, 246, 0.15);
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --purple-neon: #a855f7;
-            --cyan-neon: #06b6d4;
+            --bg-dark: #050507;
+            --card-bg: rgba(15, 15, 18, 0.75);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --text-main: #ffffff;
+            --text-muted: #a0a0ab;
+            --accent-white: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.35);
             --font-mono: 'Fira Code', monospace;
         }
 
@@ -26,11 +26,11 @@
 
         body {
             background-color: var(--bg-dark);
-            /* רשת סטטית לביצועים מקסימליים - ללא תנועה מקרטעת */
             background-image: 
-                linear-gradient(rgba(139, 92, 246, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 92, 246, 0.015) 1px, transparent 1px);
-            background-size: 40px 40px;
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
@@ -42,12 +42,12 @@
             overflow-x: hidden;
         }
 
-        /* הילות אור אופטימליות ללא filter: blur כבד */
+        /* הילות אור לבנות אופטימליות */
         .glow-orb {
             position: absolute;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(168, 85, 247, 0.03) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 40%, transparent 70%);
             top: -15%;
             right: -10%;
             z-index: -1;
@@ -60,7 +60,7 @@
             position: absolute;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 65%);
+            background: radial-gradient(circle, rgba(200, 200, 220, 0.05) 0%, transparent 65%);
             bottom: 10%;
             left: -10%;
             z-index: -1;
@@ -69,7 +69,6 @@
             animation: float 10s ease-in-out infinite alternate-reverse;
         }
 
-        /* תנועה חלקה מבוססת translate3d שמפעילה את ה-GPU */
         @keyframes float {
             0% { transform: translate3d(0, 0, 0) scale(1); }
             100% { transform: translate3d(0, 20px, 0) scale(1.05); }
@@ -85,14 +84,18 @@
         }
 
         .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
+            font-size: 1.8rem;
+            font-weight: 900;
             color: var(--text-main);
             text-decoration: none;
             letter-spacing: -1px;
+            text-transform: uppercase;
         }
 
-        .logo span { color: var(--purple-neon); text-shadow: 0 0 15px var(--purple-neon); }
+        .logo span { 
+            color: #ffffff; 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9); 
+        }
 
         .nav-links { 
             display: flex; 
@@ -100,7 +103,7 @@
             background: rgba(255, 255, 255, 0.03); 
             padding: 10px 24px; 
             border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -110,9 +113,12 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
         }
-        .nav-links a:hover { color: var(--text-main); }
+        .nav-links a:hover { 
+            color: var(--text-main); 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
 
         .hero-section {
             display: grid;
@@ -132,16 +138,17 @@
 
         .hero-text h1 {
             font-size: 4rem;
-            font-weight: 800;
+            font-weight: 900;
             line-height: 1.1;
             margin: 0 0 24px 0;
             letter-spacing: -2px;
         }
 
         .hero-text h1 span {
-            background: linear-gradient(to right, #fff, var(--purple-neon));
+            background: linear-gradient(to right, #ffffff, #888888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
         }
 
         .hero-text p {
@@ -156,36 +163,39 @@
             padding: 16px 36px;
             border-radius: 14px;
             font-size: 0.95rem;
-            font-weight: 700;
+            font-weight: 800;
             text-decoration: none;
             cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .btn-filled {
-            background: var(--purple-neon);
-            color: #ffffff;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
         }
         .btn-filled:hover {
-            transform: translate3d(0, -2px, 0);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+            transform: translate3d(0, -3px, 0);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.6);
+            background: #f0f0f0;
         }
         
         .btn-outline {
-            background: transparent;
+            background: rgba(255,255,255,0.02);
             color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
         }
         .btn-outline:hover {
-            border-color: var(--purple-neon);
-            transform: translate3d(0, -2px, 0);
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+            transform: translate3d(0, -3px, 0);
         }
 
         .terminal-window {
-            background: #09090b;
+            background: #09090c;
             border-radius: 16px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.05);
             border: 1px solid var(--card-border);
             overflow: hidden;
             max-width: 500px;
@@ -200,11 +210,11 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--purple-neon), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
         }
 
         .terminal-header {
-            background: #121214;
+            background: #111114;
             padding: 14px 18px;
             display: flex;
             align-items: center;
@@ -213,10 +223,10 @@
         }
 
         .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .dot-r { background: #ef4444; }
-        .dot-y { background: #eab308; }
-        .dot-g { background: #22c55e; }
-        .terminal-title { color: #71717a; margin-left: 10px; font-size: 0.8rem; }
+        .dot-r { background: #333338; }
+        .dot-y { background: #66666e; }
+        .dot-g { background: #ffffff; }
+        .terminal-title { color: #888890; margin-left: 10px; font-size: 0.8rem; }
 
         .terminal-body { 
             padding: 24px; 
@@ -225,16 +235,17 @@
             min-height: 240px;
             white-space: pre-wrap;
         }
-        .c-keyword { color: #f472b6; font-weight: 500; }
-        .c-string { color: #34d399; }
-        .c-name { color: #60a5fa; }
+        .c-keyword { color: #ffffff; font-weight: 700; }
+        .c-string { color: #a1a1aa; }
+        .c-name { color: #e4e4e7; text-decoration: underline; }
         .c-comment { color: #52525b; font-style: italic; }
         
         .cursor {
             display: inline-block;
             width: 8px;
             height: 15px;
-            background: var(--cyan-neon);
+            background: #ffffff;
+            box-shadow: 0 0 8px #ffffff;
             margin-left: 4px;
             animation: blink 0.8s infinite;
             vertical-align: middle;
@@ -260,7 +271,8 @@
             content: '';
             position: absolute;
             bottom: -5px; left: 0; width: 40px; height: 3px;
-            background: var(--purple-neon);
+            background: #ffffff;
+            box-shadow: 0 0 10px #ffffff;
         }
 
         .about-box {
@@ -270,7 +282,7 @@
             padding: 50px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         .about-box h3 { font-size: 1.6rem; font-weight: 700; margin: 0 0 20px 0; }
@@ -289,34 +301,36 @@
             display: flex;
             gap: 20px;
             align-items: flex-start;
-            background: rgba(255,255,255,0.015);
-            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            padding: 22px;
             border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .highlight-item:hover {
-            background: rgba(139, 92, 246, 0.04);
-            border-color: rgba(139, 92, 246, 0.25);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
             transform: scale(1.015);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
         }
 
         .icon-box {
-            background: rgba(168, 85, 247, 0.08);
-            color: var(--purple-neon);
-            width: 44px;
-            height: 44px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            width: 46px;
+            height: 46px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.25rem;
             flex-shrink: 0;
-            border: 1px solid rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
-        .highlight-text h4 { margin: 0 0 8px 0; font-size: 1.15rem; font-weight: 700; }
+        .highlight-text h4 { margin: 0 0 8px 0; font-size: 1.15rem; font-weight: 700; color: #fff; }
         .highlight-text p { margin: 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
 
         .tech-row {
@@ -336,12 +350,14 @@
             border-radius: 10px;
             font-size: 0.85rem;
             font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: border-color 0.2s ease, color 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.2s ease;
         }
         .tag:hover {
-            border-color: var(--cyan-neon);
-            color: var(--cyan-neon);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .video-grid {
@@ -360,32 +376,22 @@
             padding: 16px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .video-card:hover {
-            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.1);
-            border-color: var(--purple-neon);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.4);
             transform: translate3d(0, -4px, 0);
         }
 
-        video {
-            width: 100%;
-            border-radius: 14px;
-            background-color: #000;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* עיצוב לסרטוני יוטיוב מוטמעים - זהה לעיצוב של video */
         .yt-video {
             width: 100%;
             border-radius: 14px;
             background-color: #000;
             aspect-ratio: 16 / 9;
             display: block;
-            border: none;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .video-card h4 { 
@@ -393,27 +399,28 @@
             font-size: 1.15rem; 
             font-weight: 700; 
             letter-spacing: -0.5px;
+            color: #ffffff;
         }
 
         .contact-card {
-            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.1), transparent), var(--card-bg);
+            background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent), var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 28px;
             padding: 60px 40px;
             text-align: center;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
         }
 
-        .contact-card h3 { font-size: 2.5rem; font-weight: 800; margin: 0 0 15px 0; letter-spacing: -1.5px; }
+        .contact-card h3 { font-size: 2.5rem; font-weight: 800; margin: 0 0 15px 0; letter-spacing: -1.5px; color: #fff; }
         .contact-card p { color: var(--text-muted); margin: 0 0 40px 0; font-size: 1.1rem; }
 
         .social-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
         
         .social-btn {
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
             padding: 18px 34px;
             border-radius: 16px;
             display: flex;
@@ -423,14 +430,15 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 0.95rem;
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, color 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .social-btn:hover {
-            background: #fff;
-            color: #000;
-            border-color: #fff;
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
             transform: translate3d(0, -3px, 0);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
         }
         .social-btn svg { width: 22px; height: 22px; fill: currentColor; }
     </style>
@@ -453,7 +461,7 @@
         <div class="hero-text">
             <h1>Engineering <span>Next-Gen</span> Roblox Worlds</h1>
             <p>
-                Specialized in deep core framework scripting, clean object-oriented infrastructure, and lag-free system deployment. Over 3 years of game architecture experience.
+                Specialized in deep core framework scripting, clean object-oriented infrastructure, and lag-free system deployment. Over 3 years of elite game architecture experience.
             </p>
             <div class="btn-group">
                 <a href="#showcase" class="btn btn-filled">Explore Work</a>
@@ -466,7 +474,7 @@
                 <div class="dot dot-r"></div>
                 <div class="dot dot-y"></div>
                 <div class="dot dot-g"></div>
-                <div class="terminal-title">FynzoFramework.lua</div>
+                <div class="terminal-title">FynzoEngine.lua</div>
             </div>
             <div class="terminal-body" id="typewriter"><span class="cursor"></span></div>
         </div>
@@ -478,7 +486,7 @@
         <div class="about-box">
             <h3>Who I Am</h3>
             <p>
-                I don't just write individual scripts—I design comprehensive, backend game infrastructures. Over the last 3+ years in the Roblox development scene, I've specialized in handling complex networking and scalable system design.
+                I don't just write individual scripts—I design comprehensive, backend game infrastructures. Over the last 3+ years in the Roblox development scene, I've specialized in handling complex networking, high performance, and scalable system design.
             </p>
 
             <div class="highlights-list">
@@ -490,21 +498,21 @@
                     </div>
                 </div>
                 <div class="highlight-item">
-                    <div class="icon-box">⚙️</div>
+                    <div class="icon-box">⚡</div>
                     <div class="highlight-text">
                         <h4>Advanced Systems</h4>
                         <p>Handling secure server-authoritative networks, complex custom datastores, and memory leak prevention.</p>
                     </div>
                 </div>
                 <div class="highlight-item">
-                    <div class="icon-box">🎨</div>
+                    <div class="icon-box">👑</div>
                     <div class="highlight-text">
                         <h4>UI/UX Coding</h4>
                         <p>Writing highly responsive client-side interface controllers with buttery-smooth animation logic.</p>
                     </div>
                 </div>
                 <div class="highlight-item">
-                    <div class="icon-box">✨</div>
+                    <div class="icon-box">🛡️</div>
                     <div class="highlight-text">
                         <h4>Industry Standard Clean Code</h4>
                         <p>Fully documented, easily readable, and heavily optimized script structures built to last.</p>
@@ -546,12 +554,11 @@
             <p>Open for full-time projects, advanced studios, and elite scripting commissions.</p>
             
             <div class="social-buttons">
-               <a href="https://discord.com/users/1375367133319532614" target="_blank" class="social-btn">
-    <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg>
-    <span>Discord: <strong>i_am_fynzo</strong></span>
-</a>
+                <a href="https://discord.com/users/1375367133319532614" target="_blank" class="social-btn">
+                    <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg>
+                    <span>Discord: <strong>i_am_fynzo</strong></span>
+                </a>
 
-                
                 <a href="https://www.roblox.com/users/3964829458/profile" target="_blank" class="social-btn">
                     <svg viewBox="0 0 60 60"><path d="M14.2,0L0,45.8L45.8,60L60,14.2L14.2,0ZM36.9,35.4L23.1,39.7L18.8,25.9L32.6,21.6L36.9,35.4Z"/></svg>
                     <span>Roblox Profile</span>
@@ -568,13 +575,13 @@
             '',
             '<span class="c-keyword">function</span> FynzoEngine.<span class="c-name">NewProject</span>()',
             '  <span class="c-keyword">local</span> self = <span class="c-name">setmetatable</span>({}, FynzoEngine)',
+            '  self.Aesthetic = <span class="c-string">"Monochrome Elite"</span>',
             '  self.Experience = <span class="c-string">"3+ Years"</span>',
-            '  self.CleanCode = <span class="c-keyword">true</span>',
-            '  self.Optimization = <span class="c-string">"Maximum"</span>',
+            '  self.Performance = <span class="c-string">"Unmatched"</span>',
             '  <span class="c-keyword">return</span> self',
             '<span class="c-keyword">end</span>',
             '',
-            '<span class="c-comment">-- Ready for deployment</span>',
+            '<span class="c-comment">-- Status: Ready for deployment</span>',
             '<span class="c-name">print</span>(<span class="c-string">"System compiled flawlessly."</span>)'
         ];
 
