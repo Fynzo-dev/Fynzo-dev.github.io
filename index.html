@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>Fynzo — Roblox Systems Engineer</title>
-<meta name="description" content="Roblox systems engineer. Frameworks, replication, datastores and interfaces that survive a full server.">
+<title>Fynzo — Roblox Scripter</title>
+<meta name="description" content="Roblox scripter building frameworks, data systems and interfaces. Friendly, clear pricing in Robux or USD.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
   --ink:#000000;
   --rgb:0,0,0;
   --paper-rgb:255,255,255;
-  --soft:rgba(0,0,0,.55);
+  --soft:rgba(0,0,0,.56);
   --line:rgba(0,0,0,.13);
   --hair:rgba(0,0,0,.06);
   --tint:rgba(0,0,0,.035);
@@ -32,7 +32,7 @@ html[data-theme="dark"]{
   --ink:#ffffff;
   --rgb:255,255,255;
   --paper-rgb:0,0,0;
-  --soft:rgba(255,255,255,.6);
+  --soft:rgba(255,255,255,.62);
   --line:rgba(255,255,255,.16);
   --hair:rgba(255,255,255,.08);
   --tint:rgba(255,255,255,.045);
@@ -40,10 +40,7 @@ html[data-theme="dark"]{
 }
 *{box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
-  overflow-x:hidden;transition:background .45s ease,color .45s ease;
-}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x:hidden;transition:background .45s ease,color .45s ease}
 body.lock{overflow:hidden}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
@@ -52,17 +49,15 @@ button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer
 ::-webkit-scrollbar-track{background:var(--paper)}
 ::-webkit-scrollbar-thumb{background:var(--ink);border-radius:9px}
 
-/* ============ VIEW TRANSITION WIPE ============ */
+/* ============ THEME WIPE ============ */
 ::view-transition-old(root){animation:none}
 ::view-transition-new(root){animation:wipe .65s var(--ease)}
 @keyframes wipe{from{clip-path:circle(0% at var(--cx,50%) var(--cy,0%))}to{clip-path:circle(150% at var(--cx,50%) var(--cy,0%))}}
 
-/* ============ FX LAYERS ============ */
+/* ============ FX ============ */
 #fx{position:fixed;inset:0;z-index:-2;pointer-events:none}
-.grain{
-  position:fixed;inset:0;z-index:9995;pointer-events:none;opacity:.055;mix-blend-mode:difference;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+.grain{position:fixed;inset:0;z-index:9995;pointer-events:none;opacity:.055;mix-blend-mode:difference;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 #cur,#cdot{position:fixed;top:0;left:0;z-index:9994;pointer-events:none;border-radius:50%;mix-blend-mode:difference;will-change:transform}
 #cur{width:38px;height:38px;border:1px solid #fff;transition:width .3s var(--ease),height .3s var(--ease),background .3s}
 #cdot{width:5px;height:5px;background:#fff}
@@ -73,6 +68,7 @@ body.press #cur{width:28px;height:28px}
 /* ============ LOADER ============ */
 #load{position:fixed;inset:0;z-index:9999;background:var(--paper);display:grid;place-items:center}
 #load .n{font-family:var(--disp);font-size:clamp(4rem,18vw,11rem);line-height:1;letter-spacing:-2px}
+#load .w{position:absolute;bottom:9%;font-family:var(--mono);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--soft)}
 #load .l{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--ink)}
 #load.done{transform:translateY(-100%);transition:transform .8s var(--ease)}
 
@@ -83,22 +79,16 @@ section{padding-bottom:clamp(80px,12vw,150px)}
 
 /* ============ HEADER ============ */
 header{position:fixed;top:0;left:0;right:0;z-index:800;transition:transform .5s var(--ease)}
-header.hide{transform:translateY(-110%)}
+header.hide{transform:translateY(-115%)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;max-width:1280px;margin:0 auto}
 .brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-size:1.6rem;letter-spacing:.6px}
 .brand .sq{width:13px;height:13px;background:var(--ink);border-radius:3px;animation:rot 7s linear infinite}
 @keyframes rot{to{transform:rotate(360deg)}}
-.pill{
-  display:flex;gap:4px;padding:5px;border:1px solid var(--line);border-radius:100px;
-  background:rgba(var(--paper-rgb),.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-}
+.pill{display:flex;gap:4px;padding:5px;border:1px solid var(--line);border-radius:100px;background:rgba(var(--paper-rgb),.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .pill a{font-size:.85rem;font-weight:700;padding:9px 17px;border-radius:100px;color:var(--soft);transition:.28s var(--ease)}
 .pill a:hover,.pill a.on{background:var(--ink);color:var(--paper)}
 .hud{display:flex;gap:9px;align-items:center}
-.ib{
-  width:44px;height:44px;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;
-  background:rgba(var(--paper-rgb),.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:.28s var(--ease)
-}
+.ib{width:44px;height:44px;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;background:rgba(var(--paper-rgb),.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:.28s var(--ease)}
 .ib:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
 .ib svg{width:19px;height:19px;fill:currentColor}
 .ring{position:absolute;inset:-1px;transform:rotate(-90deg)}
@@ -108,8 +98,6 @@ header.hide{transform:translateY(-110%)}
 #kbd{gap:8px;width:auto;padding:0 15px;font-family:var(--mono);font-size:.74rem;letter-spacing:.5px}
 #burger{display:none}
 @media(max-width:940px){.pill,#kbd{display:none}#burger{display:grid}}
-
-/* theme knob */
 #theme{position:relative;overflow:hidden}
 #theme .sun,#theme .moon{position:absolute;transition:transform .5s var(--ease),opacity .35s}
 html[data-theme="light"] #theme .moon{transform:translateY(24px) rotate(45deg);opacity:0}
@@ -118,13 +106,13 @@ html[data-theme="dark"] #theme .sun{transform:translateY(-24px) rotate(-45deg);o
 /* ============ MENU ============ */
 #menu{position:fixed;inset:0;z-index:900;background:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:26px;clip-path:circle(0% at 92% 4%);transition:clip-path .7s var(--ease)}
 #menu.open{clip-path:circle(160% at 92% 4%)}
-#menu a{font-family:var(--disp);font-size:clamp(2.4rem,13vw,4.4rem);line-height:1.02;padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
-#menu a i{font-family:var(--mono);font-size:.75rem;font-style:normal;color:var(--soft)}
-#menu .foot{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+#menu a.mi{font-family:var(--disp);font-size:clamp(2.3rem,12.5vw,4.2rem);line-height:1.02;padding:13px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+#menu a.mi i{font-family:var(--mono);font-size:.74rem;font-style:normal;color:var(--soft)}
+#menu .foot{margin-top:28px;display:flex;gap:11px;flex-wrap:wrap}
 
 /* ============ HERO ============ */
 .hero{min-height:100svh;display:grid;grid-template-columns:1.12fr .88fr;gap:52px;align-items:center;padding:120px 0 60px}
-@media(max-width:1020px){.hero{grid-template-columns:1fr;gap:36px;min-height:auto;padding:120px 0 70px}}
+@media(max-width:1020px){.hero{grid-template-columns:1fr;gap:36px;min-height:auto;padding:118px 0 70px}}
 .tagpill{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:1.4px;border:1px solid var(--line);border-radius:100px;padding:9px 16px;margin-bottom:26px}
 .blip{width:7px;height:7px;border-radius:50%;background:var(--ink);position:relative}
 .blip::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--ink);animation:ping 1.8s ease-out infinite}
@@ -134,7 +122,7 @@ h1 .ol{-webkit-text-stroke:1.6px var(--ink);color:transparent}
 .ch{display:inline-block;transform:translateY(110%) rotate(6deg);opacity:0;transition:transform .9s var(--ease),opacity .6s}
 .ready .ch{transform:none;opacity:1}
 .msk{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
-.lead{font-size:clamp(1rem,2.4vw,1.18rem);line-height:1.7;color:var(--soft);max-width:580px;margin:0 0 34px;font-weight:500}
+.lead{font-size:clamp(1rem,2.4vw,1.18rem);line-height:1.72;color:var(--soft);max-width:580px;margin:0 0 34px;font-weight:500}
 .cta{display:flex;gap:13px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:17px 32px;border-radius:100px;font-weight:800;font-size:.94rem;border:1.6px solid var(--ink);transition:background .3s,color .3s;will-change:transform}
 .btn.fill{background:var(--ink);color:var(--paper)}
@@ -160,10 +148,13 @@ h1 .ol{-webkit-text-stroke:1.6px var(--ink);color:transparent}
 .caret{display:inline-block;width:8px;height:15px;background:var(--ink);vertical-align:middle;margin-left:3px;animation:bl .9s steps(1) infinite}
 @keyframes bl{50%{opacity:0}}
 
-/* ============ TICKER ============ */
-.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink);color:var(--paper);padding:16px 0;overflow:hidden;white-space:nowrap;margin-bottom:clamp(70px,10vw,120px)}
-.tk{display:inline-flex;gap:40px;font-family:var(--disp);font-size:1.35rem;letter-spacing:1px;text-transform:uppercase;animation:slide 30s linear infinite;will-change:transform}
-.ticker:hover .tk{animation-play-state:paused}
+/* ============ TILTED TICKER ============ */
+.tickwrap{position:relative;margin:0 0 clamp(78px,11vw,130px);padding:26px 0;overflow:hidden}
+.ticker{background:var(--ink);color:var(--paper);padding:15px 0;overflow:hidden;white-space:nowrap;width:112%;margin-left:-6%;transform:rotate(-1.6deg);transition:background .45s ease,color .45s ease}
+.ticker.two{transform:rotate(1.1deg);margin-top:-9px;background:var(--paper);color:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tk{display:inline-flex;gap:38px;font-family:var(--disp);font-size:clamp(1.05rem,3.4vw,1.5rem);letter-spacing:1px;text-transform:uppercase;animation:slide 30s linear infinite;will-change:transform}
+.ticker.two .tk{animation-duration:38s;animation-direction:reverse}
+.tickwrap:hover .tk{animation-play-state:paused}
 @keyframes slide{to{transform:translateX(-50%)}}
 
 /* ============ HEADS ============ */
@@ -179,7 +170,7 @@ h1 .ol{-webkit-text-stroke:1.6px var(--ink);color:transparent}
 @media(max-width:720px){.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 .stat:hover{background:var(--ink);color:var(--paper)}
 .stat b{font-family:var(--disp);font-size:clamp(2rem,5.4vw,3.4rem);display:block;line-height:1}
-.stat span{font-family:var(--mono);font-size:.7rem;letter-spacing:1.3px;text-transform:uppercase;opacity:.6}
+.stat span{font-family:var(--mono);font-size:.7rem;letter-spacing:1.3px;text-transform:uppercase;opacity:.62}
 
 /* ============ ABOUT ============ */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -247,25 +238,40 @@ html[data-theme="dark"] .thumb img{filter:grayscale(1) contrast(1.1) brightness(
 .q h4 i{font-family:var(--mono);font-size:1.4rem;font-style:normal;transition:transform .4s var(--ease)}
 .q.open h4 i{transform:rotate(135deg)}
 .q .a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease),margin .5s}
-.q.open .a{max-height:360px;margin-top:14px}
+.q.open .a{max-height:420px;margin-top:14px}
 .q .a p{margin:0;color:var(--soft);line-height:1.72;max-width:740px;font-weight:500}
 
 /* ============ CONTACT ============ */
-.contact{position:relative;overflow:hidden;border-radius:32px;background:var(--ink);color:var(--paper);padding:clamp(46px,8vw,100px) clamp(22px,5vw,60px);text-align:center}
+.contact{position:relative;overflow:hidden;border-radius:32px;background:var(--ink);color:var(--paper);padding:clamp(46px,8vw,96px) clamp(20px,5vw,60px);text-align:center}
 .spot{position:absolute;width:560px;height:560px;border-radius:50%;left:0;top:0;transform:translate(-50%,-50%);pointer-events:none;opacity:0;transition:opacity .45s;background:radial-gradient(circle,rgba(var(--paper-rgb),.14),transparent 65%)}
 .contact:hover .spot{opacity:1}
-.contact h3{position:relative;font-family:var(--disp);font-size:clamp(2.2rem,8vw,5rem);margin:0 0 15px;text-transform:uppercase;line-height:.94}
-.contact>p{position:relative;opacity:.62;max-width:520px;margin:0 auto 38px;font-size:1.02rem;font-weight:500}
-.socials{position:relative;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.sb{display:inline-flex;align-items:center;gap:11px;padding:17px 28px;border-radius:100px;border:1.6px solid rgba(var(--paper-rgb),.35);font-weight:800;font-size:.95rem;transition:background .3s,color .3s,border-color .3s;will-change:transform}
+.contact h3{position:relative;font-family:var(--disp);font-size:clamp(2.1rem,7.6vw,4.8rem);margin:0 0 15px;text-transform:uppercase;line-height:.94}
+.contact>p{position:relative;opacity:.66;max-width:540px;margin:0 auto 40px;font-size:1.02rem;font-weight:500;line-height:1.65}
+
+/* discord card button */
+.dcard{position:relative;display:inline-flex;align-items:center;gap:16px;padding:14px 26px 14px 14px;border-radius:100px;border:1.6px solid rgba(var(--paper-rgb),.34);background:rgba(var(--paper-rgb),.06);text-align:left;transition:background .35s,color .35s,border-color .35s;will-change:transform;max-width:100%}
+.dcard:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.dcard .av{width:50px;height:50px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;border:1.6px solid currentColor;transition:.35s var(--ease)}
+.dcard:hover .av{transform:rotate(-8deg) scale(1.05)}
+.dcard .av svg{width:26px;height:26px;fill:currentColor}
+.dcard .tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.dcard .tx b{font-size:1.05rem;font-weight:800;letter-spacing:-.2px;overflow:hidden;text-overflow:ellipsis}
+.dcard .tx small{font-family:var(--mono);font-size:.68rem;letter-spacing:1.2px;text-transform:uppercase;opacity:.62}
+.dcard .go{margin-left:6px;width:20px;height:20px;flex-shrink:0;fill:currentColor;transition:transform .35s var(--ease)}
+.dcard:hover .go{transform:translateX(4px)}
+.online{position:absolute;left:52px;bottom:14px;width:13px;height:13px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px var(--ink);transition:box-shadow .35s}
+.dcard:hover .online{box-shadow:0 0 0 3px var(--paper)}
+.socials{position:relative;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:center}
+.sb{display:inline-flex;align-items:center;gap:11px;padding:17px 28px;border-radius:100px;border:1.6px solid rgba(var(--paper-rgb),.34);font-weight:800;font-size:.95rem;transition:background .3s,color .3s,border-color .3s;will-change:transform}
 .sb:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 .sb svg{width:21px;height:21px;fill:currentColor}
+.note{position:relative;margin-top:26px;font-family:var(--mono);font-size:.72rem;letter-spacing:1.1px;text-transform:uppercase;opacity:.5}
 
 /* ============ PALETTE ============ */
 #pal{position:fixed;inset:0;z-index:960;display:none;padding:14vh 18px 0;justify-content:center;background:rgba(var(--paper-rgb),.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 #pal.on{display:flex}
 .palbox{width:min(560px,100%);height:max-content;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow);overflow:hidden}
-.palbox input{width:100%;padding:19px 22px;border:0;border-bottom:1px solid var(--line);background:transparent;font-size:1rem;font-family:var(--mono);outline:none}
+.palbox input{width:100%;padding:19px 22px;border:0;border-bottom:1px solid var(--line);background:transparent;font-size:1rem;font-family:var(--mono);color:inherit;outline:none}
 .palbox ul{list-style:none;margin:0;padding:7px;max-height:300px;overflow:auto}
 .palbox li{padding:13px 15px;border-radius:11px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:.93rem;cursor:pointer}
 .palbox li em{font-family:var(--mono);font-size:.7rem;font-style:normal;color:var(--soft)}
@@ -291,7 +297,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;display:flex;justify
 </head>
 <body>
 
-<div id="load"><div class="n" id="lnum">0</div><div class="l" id="lbar"></div></div>
+<div id="load"><div class="n" id="lnum">0</div><div class="w">warming up the studio</div><div class="l" id="lbar"></div></div>
 
 <canvas id="fx"></canvas>
 <div class="grain"></div>
@@ -303,15 +309,15 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;display:flex;justify
     <a href="#top" class="brand" data-h><span class="sq"></span>FYNZO</a>
     <nav class="pill" id="nav">
       <a href="#about" data-h>About</a>
-      <a href="#process" data-h>Process</a>
+      <a href="#process" data-h>How it works</a>
       <a href="#work" data-h>Work</a>
       <a href="#faq" data-h>FAQ</a>
-      <a href="#contact" data-h>Contact</a>
+      <a href="#contact" data-h>Say hi</a>
     </nav>
     <div class="hud">
-      <button class="ib" id="kbd" data-h aria-label="Open command menu">⌘K</button>
-      <button class="ib" id="theme" data-h aria-label="Toggle light and dark">
-        <svg class="sun" viewBox="0 0 24 24"><path d="M12 17a5 5 0 110-10 5 5 0 010 10zm0-13.2V1h0v2.8zM12 23v-2.8V23zM3.8 12H1h2.8zM23 12h-2.8H23zM5.3 5.3L3.4 3.4l1.9 1.9zm13.4 13.4l1.9 1.9-1.9-1.9zm0-13.4l1.9-1.9-1.9 1.9zM5.3 18.7l-1.9 1.9 1.9-1.9z"/><circle cx="12" cy="12" r="5"/><rect x="11" y="0" width="2" height="4" rx="1"/><rect x="11" y="20" width="2" height="4" rx="1"/><rect x="0" y="11" width="4" height="2" rx="1"/><rect x="20" y="11" width="4" height="2" rx="1"/></svg>
+      <button class="ib" id="kbd" data-h aria-label="Open quick menu">⌘K</button>
+      <button class="ib" id="theme" data-h aria-label="Switch between light and dark">
+        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><rect x="11" y="0" width="2" height="4" rx="1"/><rect x="11" y="20" width="2" height="4" rx="1"/><rect x="0" y="11" width="4" height="2" rx="1"/><rect x="20" y="11" width="4" height="2" rx="1"/><rect x="2.4" y="3.8" width="4" height="2" rx="1" transform="rotate(45 4.4 4.8)"/><rect x="17.6" y="18.2" width="4" height="2" rx="1" transform="rotate(45 19.6 19.2)"/><rect x="17.6" y="3.8" width="4" height="2" rx="1" transform="rotate(-45 19.6 4.8)"/><rect x="2.4" y="18.2" width="4" height="2" rx="1" transform="rotate(-45 4.4 19.2)"/></svg>
         <svg class="moon" viewBox="0 0 24 24"><path d="M21 13a9 9 0 11-10-10 7 7 0 0010 10z"/></svg>
       </button>
       <button class="ib" id="burger" data-h aria-label="Open menu" style="position:relative">
@@ -323,26 +329,26 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;display:flex;justify
 </header>
 
 <div id="menu">
-  <a href="#about">About <i>01</i></a>
-  <a href="#process">Process <i>02</i></a>
-  <a href="#work">Work <i>03</i></a>
-  <a href="#faq">FAQ <i>04</i></a>
-  <a href="#contact">Contact <i>05</i></a>
+  <a class="mi" href="#about">About <i>01</i></a>
+  <a class="mi" href="#process">How it works <i>02</i></a>
+  <a class="mi" href="#work">Work <i>03</i></a>
+  <a class="mi" href="#faq">FAQ <i>04</i></a>
+  <a class="mi" href="#contact">Say hi <i>05</i></a>
   <div class="foot">
     <button class="btn line" id="mtheme">Switch mode</button>
-    <button class="btn fill" id="mclose">Close</button>
+    <a class="btn fill" target="_blank" rel="noopener" href="https://discord.com/users/1375367133319532614">Message me</a>
   </div>
 </div>
 
 <main id="top" class="wrap">
   <div class="hero">
-    <div id="heroText">
-      <div class="tagpill rv"><span class="blip"></span> Open for commissions</div>
+    <div>
+      <div class="tagpill rv"><span class="blip"></span> Taking new projects</div>
       <h1 id="h1"></h1>
-      <p class="lead rv">Roblox scripter, four years deep in Luau. I write the backend nobody notices and the interface everybody feels. Frameworks, replication, datastores, combat, economy. If it has to survive a full server on a bad day, that part is mine.</p>
+      <p class="lead rv">Hey, I am Fynzo. I script Roblox games, mostly the parts under the hood: frameworks, saving, networking, combat, shops and the menus players actually touch. Whether you have a full design doc or just an idea you cannot stop thinking about, I am happy to take a look and tell you honestly what it would take.</p>
       <div class="cta rv">
-        <a href="#work" class="btn fill mag" data-h>See the work <svg viewBox="0 0 24 24"><path d="M5 12h12l-5-5 1.4-1.4L21 12l-7.6 6.4L12 17l5-5H5z"/></svg></a>
-        <a href="#contact" class="btn line mag" data-h>Start a project</a>
+        <a href="#work" class="btn fill mag" data-h>See my work <svg viewBox="0 0 24 24"><path d="M5 12h12l-5-5 1.4-1.4L21 12l-7.6 6.4L12 17l5-5H5z"/></svg></a>
+        <a href="https://discord.com/users/1375367133319532614" target="_blank" rel="noopener" class="btn line mag" data-h>Message me on Discord</a>
       </div>
       <div class="scrollcue rv"><span></span> scroll</div>
     </div>
@@ -354,48 +360,51 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;display:flex;justify
   </div>
 </main>
 
-<div class="ticker"><div class="tk" id="tk"></div></div>
+<div class="tickwrap">
+  <div class="ticker"><div class="tk" id="tk1"></div></div>
+  <div class="ticker two"><div class="tk" id="tk2"></div></div>
+</div>
 
 <main class="wrap">
 
   <div class="stats rv">
     <div class="stat"><b class="num" data-to="4">0</b><span>Years scripting</span></div>
-    <div class="stat"><b class="num" data-to="38" data-sfx="+">0</b><span>Systems shipped</span></div>
+    <div class="stat"><b class="num" data-to="38" data-sfx="+">0</b><span>Systems built</span></div>
     <div class="stat"><b class="num" data-to="11">0</b><span>Games worked on</span></div>
-    <div class="stat"><b class="num" data-to="60" data-sfx="fps">0</b><span>Target under load</span></div>
+    <div class="stat"><b class="num" data-to="24" data-sfx="h">0</b><span>Usual reply time</span></div>
   </div>
 
   <section id="about">
-    <div class="head rv"><h2>Who I am</h2><p>01 / About</p></div>
+    <div class="head rv"><h2>A bit about me</h2><p>01 / About</p></div>
     <div class="about">
       <div class="panel rv">
-        <p>I got into scripting because a game I played dropped to nine frames every time a round started, and nobody could tell me why.</p>
-        <p>The answer was boring. Unmanaged connections, loops running per frame, remotes firing on every input. I fixed it, then kept fixing things for other people, and somewhere along the line it stopped being a hobby.</p>
-        <p>These days I get called in for the structural work. Someone has a game that behaves with five testers and falls apart with fifty. I read the mess, rewrite the core into something modular, and hand it back documented so the next person is not cursing my name.</p>
-        <p>Two things I actually care about: code you can still read six months later, and gameplay that feels instant on a phone from 2019.</p>
+        <p>I started scripting because a game I loved kept breaking, and I wanted to understand why instead of just complaining in the comments.</p>
+        <p>So I opened Studio, read a lot of terrible code, wrote a lot more of it myself, and slowly figured things out. Four years later I am the person other developers message when their project works fine in a private test and then falls over the moment real players show up.</p>
+        <p>Most of my work is structural. I take something tangled, rebuild the core into clean modules, and hand it back with comments so anyone on your team can pick it up without needing me in the call.</p>
+        <p>I also try to make the process pleasant. No jargon walls, no ghosting, no pretending a two week job takes two months. If something is a bad idea I will say so kindly, and if you are new to hiring a scripter I will walk you through it.</p>
       </div>
       <div class="cards">
-        <div class="tilt rv"><div class="in"><div class="ico">◈</div><h4>Modular cores</h4><small>Object oriented modules with clean boundaries. Pull one feature out and the rest keeps breathing.</small></div></div>
-        <div class="tilt rv"><div class="in"><div class="ico">⚡</div><h4>Server authority</h4><small>Remotes validated, rates limited, state owned by the server. Exploiters get a short and boring session.</small></div></div>
-        <div class="tilt rv"><div class="in"><div class="ico">◐</div><h4>Data that survives</h4><small>Session locked saves with retries, versioning and rollback. Progress does not vanish on a bad shutdown.</small></div></div>
-        <div class="tilt rv"><div class="in"><div class="ico">◇</div><h4>Interfaces with weight</h4><small>Spring based motion, real feedback on every press, menus that feel expensive to touch.</small></div></div>
+        <div class="tilt rv"><div class="in"><div class="ico">◈</div><h4>Tidy foundations</h4><small>Modules with clear jobs and clean edges, so adding a feature later never means rebuilding the whole thing.</small></div></div>
+        <div class="tilt rv"><div class="in"><div class="ico">⚡</div><h4>Fair and safe play</h4><small>The server stays in charge, requests get checked, and the people trying to cheat find very little to work with.</small></div></div>
+        <div class="tilt rv"><div class="in"><div class="ico">◐</div><h4>Saves you can trust</h4><small>Careful data handling with retries and backups, so nobody logs in to find their progress gone.</small></div></div>
+        <div class="tilt rv"><div class="in"><div class="ico">◇</div><h4>Menus that feel good</h4><small>Smooth motion and honest feedback on every tap, on desktop and on a phone in someone's pocket.</small></div></div>
       </div>
     </div>
   </section>
 
   <section id="process">
-    <div class="head rv"><h2>How it goes</h2><p>02 / Process</p></div>
+    <div class="head rv"><h2>How it works</h2><p>02 / Process</p></div>
     <div class="flow rv" id="flow">
       <div class="rail"><i id="railFill"></i></div>
-      <div class="node"><div class="dotm">01</div><h4>We talk</h4><p>You tell me what the game is meant to feel like, not just what it should do. I ask the annoying questions early so nothing gets built twice.</p></div>
-      <div class="node"><div class="dotm">02</div><h4>I map it</h4><p>Module layout, data shape, remote list, failure cases. You see the structure and the flat price before a single line exists.</p></div>
-      <div class="node"><div class="dotm">03</div><h4>I build it</h4><p>Short cycles, a playable place file at the end of each one. You test it live instead of reading progress updates.</p></div>
-      <div class="node"><div class="dotm">04</div><h4>You own it</h4><p>Commented source, a short doc, and a walkthrough call. No black boxes and no permanent dependency on me.</p></div>
+      <div class="node"><div class="dotm">01</div><h4>You say hi</h4><p>Send me the idea in whatever shape it is in. A document, a video, or one sentence in a Discord message all work. I ask a few friendly questions to make sure we picture the same thing.</p></div>
+      <div class="node"><div class="dotm">02</div><h4>I plan and quote</h4><p>You get a simple breakdown of what I will build and one clear price, in Robux or USD, whichever suits you. Nothing starts until you are happy with it.</p></div>
+      <div class="node"><div class="dotm">03</div><h4>We build together</h4><p>I work in short rounds and send you something playable at the end of each one, so you can react early instead of waiting until the very end.</p></div>
+      <div class="node"><div class="dotm">04</div><h4>It is yours</h4><p>You get the full commented source, a short guide, and a call to walk through it. Ask me questions afterwards any time, I do not disappear once the payment clears.</p></div>
     </div>
   </section>
 
   <section id="work">
-    <div class="head rv"><h2>Selected work</h2><p>03 / Showcase</p></div>
+    <div class="head rv"><h2>Some of my work</h2><p>03 / Showcase</p></div>
     <div class="grid2">
       <div class="work tilt rv" data-id="0NMq3tDt3Uk">
         <div class="thumb"><img loading="lazy" alt="Movement system" src="https://img.youtube.com/vi/0NMq3tDt3Uk/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/0NMq3tDt3Uk/hqdefault.jpg'">
@@ -420,7 +429,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;display:flex;justify
     </div>
 
     <div class="rv" style="margin-top:44px">
-      <div class="head" style="margin-bottom:24px"><h2 style="font-size:clamp(1.4rem,4vw,2rem)">Stack</h2><p>Daily drivers</p></div>
+      <div class="head" style="margin-bottom:24px"><h2 style="font-size:clamp(1.4rem,4vw,2rem)">What I use</h2><p>Daily tools</p></div>
       <div class="tags">
         <span class="tag" data-h>Luau</span><span class="tag" data-h>Roblox Studio</span><span class="tag" data-h>Rojo</span>
         <span class="tag" data-h>Knit</span><span class="tag" data-h>ProfileService</span><span class="tag" data-h>Git</span>
@@ -435,32 +444,35 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;display:flex;justify
   </section>
 
   <section id="faq">
-    <div class="head rv"><h2>Straight answers</h2><p>05 / FAQ</p></div>
+    <div class="head rv"><h2>Good to know</h2><p>05 / FAQ</p></div>
     <div class="rv">
-      <div class="q"><h4>What does a job cost <i>+</i></h4><div class="a"><p>Scope decides it. A standalone system is a small flat fee, a full framework is a different conversation. Either way you get one number in writing before work starts, and it does not move unless you change the brief.</p></div></div>
-      <div class="q"><h4>How fast do you deliver <i>+</i></h4><div class="a"><p>A single system is usually a few days. Bigger builds get split into milestones so you always have something playable in hand. I would rather quote honestly and hit the date than promise a weekend and go quiet.</p></div></div>
-      <div class="q"><h4>Can you join an existing team <i>+</i></h4><div class="a"><p>Yes, and I prefer it. Rojo and Git are normal to me, so are code reviews and matching a style guide that already exists. I do not need to rewrite your project to be useful inside it.</p></div></div>
-      <div class="q"><h4>What happens after delivery <i>+</i></h4><div class="a"><p>Bugs in code I wrote get fixed free with no time limit. New features are new work. If you want me around for ongoing updates, a monthly arrangement is easy to set up.</p></div></div>
-      <div class="q"><h4>Do I get the source <i>+</i></h4><div class="a"><p>Always. Full source, commented, plus a short document explaining how the pieces talk to each other. You own it outright and you are never locked to me.</p></div></div>
+      <div class="q"><h4>What does it cost <i>+</i></h4><div class="a"><p>It depends on what you need, so I quote each job on its own. A single small system is a modest one off fee, a full framework is a bigger conversation. I happily take payment in Robux through a group payout or a gamepass, or in USD if that is easier for you, and I will tell you the exact number before any work begins so there are no surprises.</p></div></div>
+      <div class="q"><h4>How long will it take <i>+</i></h4><div class="a"><p>A single system is usually a few days. Larger projects get split into stages so you always have something to look at while we go. I would rather give you an honest date and meet it than promise a weekend and leave you waiting.</p></div></div>
+      <div class="q"><h4>I am new to this, is that ok <i>+</i></h4><div class="a"><p>Completely. Plenty of people message me with just an idea and no plan yet. I will explain things in normal language, help you shape the scope, and tell you if something can be done in a simpler or cheaper way. Asking questions is never annoying.</p></div></div>
+      <div class="q"><h4>Can you join a team that already exists <i>+</i></h4><div class="a"><p>Yes, and I enjoy it. I am comfortable with Rojo and Git, code reviews, and following whatever style your team already uses. I will fit into your project rather than asking you to rebuild around me.</p></div></div>
+      <div class="q"><h4>What happens after you deliver <i>+</i></h4><div class="a"><p>If something I wrote breaks, I fix it for free, with no deadline on that. New features count as new work. If you would like me around for regular updates, we can set up a simple monthly arrangement.</p></div></div>
+      <div class="q"><h4>Do I get the source code <i>+</i></h4><div class="a"><p>Always, and it is yours to keep. Full commented source plus a short guide on how the pieces fit together, so you or anyone you hire later can carry on without me.</p></div></div>
     </div>
   </section>
 
   <section id="contact">
     <div class="contact rv" id="cc">
       <div class="spot" id="spot"></div>
-      <h3>Got a game<br>that needs a brain</h3>
-      <p>Send the idea over, even if it is three lines in a Discord message. I read everything and reply the same day.</p>
+      <h3>Let us make<br>something fun</h3>
+      <p>The easiest way to reach me is Discord. Tap the card below and it opens my profile straight away, no adding required. Say hi even if your idea is only half formed, I answer everyone.</p>
       <div class="socials">
-        <button class="sb mag" id="copy" data-h>
-          <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg>
-          i_am_fynzo
-        </button>
-        <a class="sb mag" data-h target="_blank" rel="noopener" href="https://discord.com/users/1375367133319532614">Open Discord</a>
+        <a class="dcard mag" data-h target="_blank" rel="noopener" href="https://discord.com/users/1375367133319532614" aria-label="Open my Discord profile">
+          <span class="av"><svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.95,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.7-10.93,68.6,68.6,0,0,1-10.57-5.06c.9-.66,1.76-1.35,2.58-2.07a75.48,75.48,0,0,0,72.74,0c.82.72,1.68,1.41,2.58,2.07a68.6,68.6,0,0,1-10.57,5.06,74.37,74.37,0,0,0,6.7,10.93,105.73,105.73,0,0,0,31.58-18.83C129.83,48.86,123.66,26.05,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.88,46,53.72,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.12,46,96,53,91,65.69,84.69,65.69Z"/></svg></span>
+          <span class="online"></span>
+          <span class="tx"><b>i_am_fynzo</b><small>Open my Discord profile</small></span>
+          <svg class="go" viewBox="0 0 24 24"><path d="M5 12h12l-5-5 1.4-1.4L21 12l-7.6 6.4L12 17l5-5H5z"/></svg>
+        </a>
         <a class="sb mag" data-h target="_blank" rel="noopener" href="https://www.roblox.com/users/3964829458/profile">
           <svg viewBox="0 0 60 60"><path d="M14.2,0L0,45.8L45.8,60L60,14.2L14.2,0ZM36.9,35.4L23.1,39.7L18.8,25.9L32.6,21.6L36.9,35.4Z"/></svg>
           Roblox profile
         </a>
       </div>
+      <div class="note">Robux or USD &nbsp;&#10022;&nbsp; free quote &nbsp;&#10022;&nbsp; no pressure</div>
     </div>
   </section>
 
@@ -472,17 +484,19 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;display:flex;justify
 </main>
 
 <div id="pal"><div class="palbox">
-  <input id="palq" placeholder="Type a command or a section" autocomplete="off" spellcheck="false">
+  <input id="palq" placeholder="Search a section or an action" autocomplete="off" spellcheck="false">
   <ul id="pall"></ul>
 </div></div>
 
 <div id="box"><button class="ib" id="xbox" data-h aria-label="Close video"><svg viewBox="0 0 24 24"><path d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4L10.6 10.6l6.3-6.3z"/></svg></button><div class="fr" id="fr"></div></div>
-<div id="toast">Copied to clipboard</div>
+<div id="toast">Opening Discord</div>
 
 <script>
 (function(){
 'use strict';
 var root=document.documentElement,body=document.body;
+var DISCORD='https://discord.com/users/1375367133319532614';
+var ROBLOX='https://www.roblox.com/users/3964829458/profile';
 var touch=window.matchMedia('(hover:none)').matches;
 var slow=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 var $=function(s,c){return (c||document).querySelector(s)};
@@ -503,87 +517,93 @@ function flip(e){
   var x=e&&e.clientX?e.clientX:innerWidth-60, y=e&&e.clientY?e.clientY:40;
   root.style.setProperty('--cx',(x/innerWidth*100)+'%');
   root.style.setProperty('--cy',(y/innerHeight*100)+'%');
-  if(document.startViewTransition && !slow){ document.startViewTransition(function(){setTheme(next)}); }
+  if(document.startViewTransition && !slow){document.startViewTransition(function(){setTheme(next)})}
   else setTheme(next);
 }
 $('#theme').addEventListener('click',flip);
 $('#mtheme').addEventListener('click',flip);
 
-/* ---------- canvas dot field ---------- */
+/* ---------- dot field ---------- */
 window.FX=(function(){
   var c=$('#fx'),ctx=c.getContext('2d'),dpr=Math.min(devicePixelRatio||1,2);
-  var dots=[],mx=-9999,my=-9999,tx=-9999,ty=-9999,rgb='0,0,0',raf;
-  function recolor(){ rgb=getComputedStyle(root).getPropertyValue('--rgb').trim()||'0,0,0'; }
+  var dots=[],mx=-9999,my=-9999,tx=-9999,ty=-9999,rgb='0,0,0';
+  function recolor(){rgb=getComputedStyle(root).getPropertyValue('--rgb').trim()||'0,0,0'}
   function build(){
-    c.width=innerWidth*dpr; c.height=innerHeight*dpr;
-    c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px';
-    var gap=innerWidth<700?46:38; dots=[];
-    for(var x=gap/2;x<innerWidth;x+=gap) for(var y=gap/2;y<innerHeight;y+=gap) dots.push({x:x,y:y});
+    c.width=innerWidth*dpr;c.height=innerHeight*dpr;
+    c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';
+    var gap=innerWidth<700?46:38;dots=[];
+    for(var x=gap/2;x<innerWidth;x+=gap)for(var y=gap/2;y<innerHeight;y+=gap)dots.push({x:x,y:y});
     recolor();
   }
   function draw(){
     ctx.clearRect(0,0,c.width,c.height);
-    mx+=(tx-mx)*.12; my+=(ty-my)*.12;
+    mx+=(tx-mx)*.12;my+=(ty-my)*.12;
     var R=160,i,d,dx,dy,dist,f,px,py,s,a;
     for(i=0;i<dots.length;i++){
-      d=dots[i]; dx=d.x-mx; dy=d.y-my; dist=Math.sqrt(dx*dx+dy*dy);
+      d=dots[i];dx=d.x-mx;dy=d.y-my;dist=Math.sqrt(dx*dx+dy*dy);
       f=dist<R?(1-dist/R):0;
-      px=d.x+(dx/(dist||1))*f*14; py=d.y+(dy/(dist||1))*f*14;
-      s=(.9+f*2.1)*dpr; a=.13+f*.62;
+      px=d.x+(dx/(dist||1))*f*14;py=d.y+(dy/(dist||1))*f*14;
+      s=(.9+f*2.1)*dpr;a=.13+f*.62;
       ctx.fillStyle='rgba('+rgb+','+a+')';
       ctx.fillRect(px*dpr-s/2,py*dpr-s/2,s,s);
     }
-    raf=requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
+  }
+  function still(){
+    ctx.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<dots.length;i++){ctx.fillStyle='rgba('+rgb+',.16)';ctx.fillRect(dots[i].x*dpr,dots[i].y*dpr,dpr,dpr)}
   }
   build();
-  if(!slow) draw(); else { mx=my=-9999; draw(); cancelAnimationFrame(raf); ctx.clearRect(0,0,c.width,c.height);
-    for(var i=0;i<dots.length;i++){ctx.fillStyle='rgba('+rgb+',.14)';ctx.fillRect(dots[i].x*dpr,dots[i].y*dpr,dpr,dpr)} }
+  if(!slow&&!touch){draw()}else{still();addEventListener('resize',function(){build();still()})}
   addEventListener('resize',build);
   addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY});
   addEventListener('mouseleave',function(){tx=-9999;ty=-9999});
-  return {recolor:recolor,build:build};
+  return {recolor:function(){recolor();if(slow||touch)still()}};
 })();
 
 /* ---------- loader ---------- */
 (function(){
   var el=$('#load'),n=$('#lnum'),b=$('#lbar'),v=0;
   var t=setInterval(function(){
-    v+=Math.random()*16+7; if(v>=100){v=100;clearInterval(t);finish()}
-    n.textContent=Math.floor(v); b.style.width=v+'%';
+    v+=Math.random()*16+7;if(v>=100){v=100;clearInterval(t);finish()}
+    n.textContent=Math.floor(v);b.style.width=v+'%';
   },70);
-  function finish(){ setTimeout(function(){ el.classList.add('done'); body.classList.add('ready'); setTimeout(function(){el.remove()},900); },220); }
-  setTimeout(function(){ if(document.getElementById('load')){clearInterval(t);finish()} },2600);
+  function finish(){setTimeout(function(){el.classList.add('done');body.classList.add('ready');setTimeout(function(){if(el.parentNode)el.remove()},900)},220)}
+  setTimeout(function(){if(document.getElementById('load')&&v<100){clearInterval(t);finish()}},2600);
 })();
 
-/* ---------- split headline ---------- */
+/* ---------- headline ---------- */
 (function(){
-  var words=[{t:'I build',o:false},{t:'the systems',o:false},{t:'that hold',o:false},{t:'up',o:true}];
+  var rows=[{t:'I build',o:false},{t:'Roblox games',o:false},{t:'that just',o:false},{t:'work',o:true}];
   var h=$('#h1'),k=0;
-  words.forEach(function(w,wi){
-    w.t.split(' ').forEach(function(word){
-      var m=document.createElement('span'); m.className='msk';
+  rows.forEach(function(r,ri){
+    r.t.split(' ').forEach(function(word){
+      var m=document.createElement('span');m.className='msk';
       word.split('').forEach(function(ch){
-        var s=document.createElement('span'); s.className='ch'+(w.o?' ol':'');
-        s.textContent=ch; s.style.transitionDelay=(k*26+240)+'ms'; k++; m.appendChild(s);
+        var s=document.createElement('span');s.className='ch'+(r.o?' ol':'');
+        s.textContent=ch;s.style.transitionDelay=(k*26+240)+'ms';k++;m.appendChild(s);
       });
-      h.appendChild(m); h.appendChild(document.createTextNode(' '));
+      h.appendChild(m);h.appendChild(document.createTextNode(' '));
     });
-    if(wi<words.length-1) h.appendChild(document.createElement('br'));
+    if(ri<rows.length-1)h.appendChild(document.createElement('br'));
   });
 })();
 
-/* ---------- ticker + quotes ---------- */
+/* ---------- tickers + quotes ---------- */
 (function(){
-  var w=['Luau engineering','Networking','Datastores','Combat systems','UI controllers','Anti exploit','Optimization'];
-  var line=w.join(' &#10022; ')+' &#10022; ';
-  $('#tk').innerHTML='<span>'+line+'</span><span>'+line+'</span>';
+  var a=['Game frameworks','Saving and data','Networking','Combat systems','Shops and economy','Menus and UI','Fair play checks','Clean up and speed'];
+  var b=['Friendly quotes','Robux or USD','Full source included','Free bug fixes','Same week starts','Plain english updates'];
+  var la=a.join(' &#10022; ')+' &#10022; ';
+  var lb=b.join(' &#10022; ')+' &#10022; ';
+  $('#tk1').innerHTML='<span>'+la+'</span><span>'+la+'</span>';
+  $('#tk2').innerHTML='<span>'+lb+'</span><span>'+lb+'</span>';
 
   var qs=[
-    ['Handed him a game that lagged out at forty players. Came back running clean at eighty and half the module count.','Studio owner / simulator'],
-    ['Only scripter I have worked with who actually left comments I could follow. Took over his code with no handover pain.','Developer / obby game'],
-    ['Quoted a price, hit the date, fixed two bugs after payment without being asked. That is the whole review.','Commissioner'],
-    ['Our UI went from stiff to something people mess with for fun. Retention moved and we did not change anything else.','Lead designer'],
-    ['He pushed back on my spec, explained why, and was right. Saved us a rewrite later.','Producer / tycoon game']
+    ['Our game struggled the moment a lobby filled up. Fynzo rebuilt the core and it has been smooth since, with half the scripts.','Studio owner / simulator'],
+    ['First scripter I have worked with who left comments I could actually follow. Picking up his code was painless.','Developer / obby game'],
+    ['Quoted a price, hit the date, then fixed two small bugs after payment without me even asking. Easy to recommend.','Commissioner'],
+    ['Our menus went from stiff to something players poke at for fun. He explained every choice along the way.','Lead designer'],
+    ['He pushed back on part of my plan, told me why in a nice way, and he was right. Saved us a rewrite later.','Producer / tycoon game']
   ];
   var html=qs.map(function(q){return '<div class="qc"><p>'+q[0]+'</p><span>'+q[1]+'</span></div>'}).join('');
   $('#qt').innerHTML=html+html;
@@ -593,18 +613,17 @@ window.FX=(function(){
 (function(){
   var lines=[
     '<span class="k">local</span> Engine = {}',
-    'Engine.__index = Engine',
-    '',
+    'Engine.__index = Engine','',
     '<span class="k">function</span> Engine.<span class="n">new</span>()',
     '  <span class="k">local</span> self = <span class="n">setmetatable</span>({}, Engine)',
-    '  self.Owner    = <span class="s">"Fynzo"</span>',
-    '  self.Focus    = <span class="s">"architecture first"</span>',
-    '  self.Uptime   = <span class="s">"4 years"</span>',
-    '  self.Leaks    = <span class="s">"none left behind"</span>',
+    '  self.Name     = <span class="s">"Fynzo"</span>',
+    '  self.Style    = <span class="s">"clean and documented"</span>',
+    '  self.Payments = <span class="s">"Robux or USD"</span>',
+    '  self.Replies  = <span class="s">"same day, usually"</span>',
     '  <span class="k">return</span> self',
     '<span class="k">end</span>','',
-    '<span class="c">// ready when you are</span>',
-    '<span class="n">print</span>(<span class="s">"compiled clean"</span>)'
+    '<span class="c">// say hi whenever you are ready</span>',
+    '<span class="n">print</span>(<span class="s">"lets build something"</span>)'
   ];
   var el=$('#tw'),li=0,ci=0,out='';
   function step(){
@@ -621,24 +640,24 @@ window.FX=(function(){
 /* ---------- reveal ---------- */
 (function(){
   var io=new IntersectionObserver(function(es,ob){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); ob.unobserve(e.target); } });
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target)}});
   },{rootMargin:'0px 0px -70px 0px',threshold:.04});
 
-  $$('.rv').forEach(function(el,i){ el.style.transitionDelay=Math.min((i%4)*80,240)+'ms'; io.observe(el); });
+  $$('.rv').forEach(function(el,i){el.style.transitionDelay=Math.min((i%4)*80,240)+'ms';io.observe(el)});
 
-  $$('.hero .rv').forEach(function(el){ setTimeout(function(){el.classList.add('vis')},120) });
+  $$('.hero .rv').forEach(function(el){setTimeout(function(){el.classList.add('vis')},120)});
 })();
 
 /* ---------- counters ---------- */
 (function(){
   var io=new IntersectionObserver(function(es,ob){
     es.forEach(function(e){
-      if(!e.isIntersecting) return;
+      if(!e.isIntersecting)return;
       var el=e.target,to=+el.dataset.to,sfx=el.dataset.sfx||'',s=null;
       requestAnimationFrame(function run(t){
-        if(!s)s=t; var p=Math.min((t-s)/1500,1);
+        if(!s)s=t;var p=Math.min((t-s)/1500,1);
         el.textContent=Math.round(to*(1-Math.pow(1-p,3)))+sfx;
-        if(p<1) requestAnimationFrame(run);
+        if(p<1)requestAnimationFrame(run);
       });
       ob.unobserve(el);
     });
@@ -647,34 +666,34 @@ window.FX=(function(){
   $$('.num').forEach(function(n){io.observe(n)});
 })();
 
-/* ---------- scroll driven ---------- */
+/* ---------- scroll ---------- */
 (function(){
   var hd=$('#hd'),prog=$('#prog'),last=0,rail=$('#railFill'),flow=$('#flow'),nodes=$$('.node'),links=$$('#nav a');
   var secs=['about','process','work','faq','contact'].map(function(id){return document.getElementById(id)});
   function tick(){
     var y=scrollY,max=document.body.scrollHeight-innerHeight;
     prog.style.strokeDashoffset=132-(132*(y/(max||1)));
-    hd.classList.toggle('hide', y>last && y>320 && !$('#menu').classList.contains('open'));
+    hd.classList.toggle('hide',y>last&&y>320&&!$('#menu').classList.contains('open'));
     last=y;
     if(flow){
-      var r=flow.getBoundingClientRect(),h=r.height;
-      var p=Math.max(0,Math.min(1,(innerHeight*.62-r.top)/h));
+      var r=flow.getBoundingClientRect();
+      var p=Math.max(0,Math.min(1,(innerHeight*.62-r.top)/r.height));
       rail.style.height=(p*100)+'%';
-      nodes.forEach(function(n){ n.classList.toggle('act', n.getBoundingClientRect().top < innerHeight*.62); });
+      nodes.forEach(function(n){n.classList.toggle('act',n.getBoundingClientRect().top<innerHeight*.62)});
     }
     var cur=null;
-    secs.forEach(function(s){ if(s && s.getBoundingClientRect().top<innerHeight*.45) cur=s.id; });
-    links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href')==='#'+cur); });
+    secs.forEach(function(s){if(s&&s.getBoundingClientRect().top<innerHeight*.45)cur=s.id});
+    links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+cur)});
   }
   addEventListener('scroll',function(){requestAnimationFrame(tick)},{passive:true});
-  addEventListener('resize',tick); tick();
+  addEventListener('resize',tick);tick();
 })();
 
-/* ---------- pointer effects ---------- */
-if(!touch && !slow){
+/* ---------- pointer ---------- */
+if(!touch&&!slow){
   var ring=$('#cur'),dot=$('#cdot'),mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
-  addEventListener('mousemove',function(e){ mx=e.clientX; my=e.clientY; dot.style.transform='translate('+(mx-2.5)+'px,'+(my-2.5)+'px)'; });
-  (function loop(){ rx+=(mx-rx)*.17; ry+=(my-ry)*.17; ring.style.transform='translate('+(rx-19)+'px,'+(ry-19)+'px)'; requestAnimationFrame(loop); })();
+  addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.transform='translate('+(mx-2.5)+'px,'+(my-2.5)+'px)'});
+  (function loop(){rx+=(mx-rx)*.17;ry+=(my-ry)*.17;ring.style.transform='translate('+(rx-19)+'px,'+(ry-19)+'px)';requestAnimationFrame(loop)})();
   addEventListener('mousedown',function(){body.classList.add('press')});
   addEventListener('mouseup',function(){body.classList.remove('press')});
 
@@ -683,13 +702,12 @@ if(!touch && !slow){
     el.addEventListener('mouseleave',function(){body.classList.remove('hov')});
   });
 
-
   $$('.tilt').forEach(function(card){
     card.addEventListener('mousemove',function(e){
       var r=card.getBoundingClientRect();
-      var rxx=((e.clientY-r.top)/r.height-.5)*-7, ryy=((e.clientX-r.left)/r.width-.5)*7;
+      var a=((e.clientY-r.top)/r.height-.5)*-7,b=((e.clientX-r.left)/r.width-.5)*7;
       card.style.transition='transform .12s ease-out';
-      card.style.transform='perspective(950px) rotateX('+rxx+'deg) rotateY('+ryy+'deg) translateY(-5px)';
+      card.style.transform='perspective(950px) rotateX('+a+'deg) rotateY('+b+'deg) translateY(-5px)';
     });
     card.addEventListener('mouseleave',function(){
       card.style.transition='transform .7s cubic-bezier(.19,1,.22,1)';
@@ -697,19 +715,17 @@ if(!touch && !slow){
     });
   });
 
-
   $$('.mag').forEach(function(b){
     b.addEventListener('mousemove',function(e){
       var r=b.getBoundingClientRect();
-      b.style.transform='translate('+(e.clientX-r.left-r.width/2)*.24+'px,'+(e.clientY-r.top-r.height/2)*.34+'px)';
+      b.style.transform='translate('+(e.clientX-r.left-r.width/2)*.2+'px,'+(e.clientY-r.top-r.height/2)*.3+'px)';
     });
     b.addEventListener('mouseleave',function(){b.style.transform='translate(0,0)'});
   });
-
   var cc=$('#cc'),spot=$('#spot');
   cc.addEventListener('mousemove',function(e){
     var r=cc.getBoundingClientRect();
-    spot.style.left=(e.clientX-r.left)+'px'; spot.style.top=(e.clientY-r.top)+'px';
+    spot.style.left=(e.clientX-r.left)+'px';spot.style.top=(e.clientY-r.top)+'px';
   });
 }
 
@@ -719,7 +735,6 @@ if(!touch && !slow){
   function open(){m.classList.add('open');body.classList.add('lock')}
   function close(){m.classList.remove('open');body.classList.remove('lock')}
   $('#burger').addEventListener('click',open);
-  $('#mclose').addEventListener('click',close);
 
   $$('#menu a').forEach(function(a){a.addEventListener('click',close)});
   window.__closeMenu=close;
@@ -732,7 +747,7 @@ $$('.q').forEach(function(q){
     var was=q.classList.contains('open');
 
     $$('.q').forEach(function(o){o.classList.remove('open')});
-    if(!was) q.classList.add('open');
+    if(!was)q.classList.add('open');
   });
 });
 
@@ -752,40 +767,34 @@ $$('.q').forEach(function(q){
   window.__closeBox=close;
 })();
 
-/* ---------- toast + copy ---------- */
-function toast(msg){var t=$('#toast');t.textContent=msg;t.classList.add('up');setTimeout(function(){t.classList.remove('up')},1900)}
-function copyTag(){
-  var v='i_am_fynzo';
-  if(navigator.clipboard) navigator.clipboard.writeText(v).then(function(){toast('Copied i_am_fynzo')});
-  else toast('Discord: '+v);
-}
-$('#copy').addEventListener('click',copyTag);
+/* ---------- toast ---------- */
+function toast(msg){var t=$('#toast');t.textContent=msg;t.classList.add('up');setTimeout(function(){t.classList.remove('up')},1800)}
 
-/* ---------- command palette ---------- */
+$$('a[href*="discord.com"]').forEach(function(a){a.addEventListener('click',function(){toast('Opening my Discord profile')})});
+
+/* ---------- quick menu ---------- */
 (function(){
   var pal=$('#pal'),q=$('#palq'),list=$('#pall'),sel=0;
+  function jump(h){var t=$(h);if(t)t.scrollIntoView({behavior:'smooth'})}
   var items=[
-    {n:'About',k:'section',go:function(){jump('#about')}},
-    {n:'Process',k:'section',go:function(){jump('#process')}},
-    {n:'Work',k:'section',go:function(){jump('#work')}},
-    {n:'Feedback',k:'section',go:function(){jump('#words')}},
-    {n:'FAQ',k:'section',go:function(){jump('#faq')}},
+    {n:'About me',k:'section',go:function(){jump('#about')}},
+    {n:'How it works',k:'section',go:function(){jump('#process')}},
+    {n:'My work',k:'section',go:function(){jump('#work')}},
+    {n:'Kind words',k:'section',go:function(){jump('#words')}},
+    {n:'FAQ and pricing',k:'section',go:function(){jump('#faq')}},
     {n:'Contact',k:'section',go:function(){jump('#contact')}},
-    {n:'Switch light and dark',k:'theme',go:function(){flip()}},
-    {n:'Copy Discord tag',k:'copy',go:copyTag},
-    {n:'Open Roblox profile',k:'link',go:function(){open('https://www.roblox.com/users/3964829458/profile','_blank')}},
-    {n:'Open Discord profile',k:'link',go:function(){open('https://discord.com/users/1375367133319532614','_blank')}}
+    {n:'Message me on Discord',k:'open',go:function(){toast('Opening my Discord profile');window.open(DISCORD,'_blank')}},
+    {n:'Open my Roblox profile',k:'open',go:function(){window.open(ROBLOX,'_blank')}},
+    {n:'Switch light and dark',k:'theme',go:function(){flip()}}
   ];
-  function jump(h){var t=$(h); if(t) t.scrollIntoView({behavior:'smooth'})}
   function render(){
     var term=q.value.toLowerCase();
     var f=items.filter(function(i){return i.n.toLowerCase().indexOf(term)>-1||i.k.indexOf(term)>-1});
-    if(sel>=f.length) sel=0;
-    list.innerHTML=f.map(function(i,x){return '<li class="'+(x===sel?'sel':'')+'" data-i="'+items.indexOf(i)+'">'+i.n+'<em>'+i.k+'</em></li>'}).join('')
-      || '<li><em>nothing matched</em></li>';
+    if(sel>=f.length)sel=0;
+    list.innerHTML=f.map(function(i,x){return '<li class="'+(x===sel?'sel':'')+'" data-i="'+items.indexOf(i)+'">'+i.n+'<em>'+i.k+'</em></li>'}).join('')||'<li><em>nothing matched</em></li>';
 
     $$('#pall li').forEach(function(li){
-      li.addEventListener('click',function(){var i=items[+li.dataset.i]; if(i){closeP();i.go()}});
+      li.addEventListener('click',function(){var i=items[+li.dataset.i];if(i){closeP();i.go()}});
       li.addEventListener('mouseenter',function(){$$('#pall li').forEach(function(o){o.classList.remove('sel')});li.classList.add('sel');sel=$$('#pall li').indexOf(li)});
     });
   }
@@ -795,27 +804,24 @@ $('#copy').addEventListener('click',copyTag);
   q.addEventListener('input',function(){sel=0;render()});
   pal.addEventListener('click',function(e){if(e.target===pal)closeP()});
   addEventListener('keydown',function(e){
-    var k=e.key.toLowerCase();
+    var k=(e.key||'').toLowerCase();
     if((e.metaKey||e.ctrlKey)&&k==='k'){e.preventDefault();pal.classList.contains('on')?closeP():openP();return}
     if(e.key==='Escape'){closeP();window.__closeBox();window.__closeMenu();return}
     if(!pal.classList.contains('on')){
-      if(k==='t'&&!e.metaKey&&!e.ctrlKey&&document.activeElement===body){flip()}
+      if(k==='t'&&!e.metaKey&&!e.ctrlKey&&document.activeElement===body)flip();
       return;
     }
     var rows=$$('#pall li');
     if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,rows.length-1);render()}
     if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);render()}
-    if(e.key==='Enter'){
-      var row=$('#pall li.sel'); if(row&&row.dataset.i!==undefined){var i=items[+row.dataset.i];closeP();i.go()}
-    }
+    if(e.key==='Enter'){var row=$('#pall li.sel');if(row&&row.dataset.i!==undefined){var i=items[+row.dataset.i];closeP();i.go()}}
   });
 })();
 
-/* ---------- clock + year ---------- */
+/* ---------- clock ---------- */
 $('#yr').textContent=new Date().getFullYear();
 setInterval(function(){
-  var d=new Date();
-  var p=function(x){return x<10?'0'+x:''+x};
+  var d=new Date(),p=function(x){return x<10?'0'+x:''+x};
   $('#clock').textContent='local '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());
 },1000);
 })();
